@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B41C9E1620CD77B500158848 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41C9E1520CD77B500158848 /* SettingsVC.swift */; };
 		B47E6C321FFA82D9001CFCF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47E6C311FFA82D9001CFCF0 /* AppDelegate.swift */; };
 		B47E6C341FFA82D9001CFCF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47E6C331FFA82D9001CFCF0 /* ViewController.swift */; };
 		B47E6C361FFA82D9001CFCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B47E6C351FFA82D9001CFCF0 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B41C9E1520CD77B500158848 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		B47E6C2E1FFA82D9001CFCF0 /* SSR Link Generator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SSR Link Generator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47E6C311FFA82D9001CFCF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B47E6C331FFA82D9001CFCF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				B47E6C331FFA82D9001CFCF0 /* ViewController.swift */,
 				B47E6C351FFA82D9001CFCF0 /* Assets.xcassets */,
 				B47E6C371FFA82D9001CFCF0 /* Main.storyboard */,
+				B41C9E1520CD77B500158848 /* SettingsVC.swift */,
 				B47E6C3A1FFA82D9001CFCF0 /* Info.plist */,
 				B47E6C3B1FFA82D9001CFCF0 /* SSR_Link_Generator.entitlements */,
 				B4BE97AF20C9126400F8D599 /* ConfigurationOptions.swift */,
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B47E6C341FFA82D9001CFCF0 /* ViewController.swift in Sources */,
+				B41C9E1620CD77B500158848 /* SettingsVC.swift in Sources */,
 				B4BE97B020C9126400F8D599 /* ConfigurationOptions.swift in Sources */,
 				B47E6C321FFA82D9001CFCF0 /* AppDelegate.swift in Sources */,
 			);

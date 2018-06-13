@@ -14,19 +14,17 @@ class ViewController: NSViewController {
     super.viewDidLoad()
     
     populateMenus()
-    startPort.stringValue = "9001"
-    
+    loadDefaults()
   }
 
   @IBAction func generateLink(_ sender: Any) {
-    resultText.stringValue = ""
+    resultText.string = ""
     generateLink()
     
   }
   
+  @IBOutlet weak var generateLinkButton: NSButton!
   @IBOutlet weak var startPort: NSTextField!
-  @IBOutlet weak var resultText: NSTextField!
-  @IBOutlet weak var passwords: NSTextField!
   @IBOutlet weak var serverIP: NSTextField!
   @IBOutlet weak var serverName: NSTextField!
   @IBOutlet weak var obfsOptions: NSPopUpButton!
@@ -35,16 +33,15 @@ class ViewController: NSViewController {
   @IBOutlet weak var protocolOptions: NSPopUpButton!
   @IBOutlet weak var protocolParameter: NSTextField!
   @IBOutlet weak var group: NSTextField!
+  @IBOutlet var passwords: PlaceholderTextView!
+  @IBOutlet var resultText: NSTextView!
+  
+  let menus = ConfigurationOptions()
+  var delegate: SettingsVC?
   
   
-  func populateMenus() {
-    menus.encryptionMethods.forEach { encryptionMethods.addItem(withTitle: $0) }
-    
-    menus.obfsOpitons.forEach { obfsOptions.addItem(withTitle: $0) }
-    
-    menus.protocolOptions.forEach { protocolOptions.addItem(withTitle: $0) }
-  }
-  
+
+  // Encode string using base64 method
   func encodeString(_ string: String) -> String {
     let stringData = string.data(using: String.Encoding.ascii)
     let encodedString = stringData!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
@@ -52,6 +49,7 @@ class ViewController: NSViewController {
     return trimmedString
   }
   
+  // Split passwords string into separate items, one per line
   func splitPasswords(_ passwords: String) -> [String] {
     
     var passwordsArray = [String]()
@@ -80,98 +78,110 @@ class ViewController: NSViewController {
     return passwordsArray
   }
 
-  
+  // Generate Links
   func generateLink() {
     
-    var finalString = ""
-    var passwordsCount = 0
-
     // Conditions check
     guard serverIP.stringValue != "" else {
-      let alert = NSAlert()
-      alert.messageText = "请输入服务器IP或域名"
-      alert.alertStyle = .critical
-      alert.runModal()
-      
+      makeAlert("请输入服务器IP或域名")
       return
     }
     
-    guard var startPort = Int(self.startPort.stringValue) else {
-      let alert = NSAlert()
-      alert.messageText = "初始端口请输入数字"
-      alert.alertStyle = .critical
-      alert.runModal()
-      
+    guard let startPort = Int(self.startPort.stringValue) else {
+      makeAlert("初始端口请输入数字")
       return
     }
     
-    guard passwords.stringValue != "" else {
-      let alert = NSAlert()
-      alert.alertStyle = .critical
-      alert.messageText = "请输入密码，可直接复制粘贴"
-      alert.runModal()
-      
+    guard passwords.string != "" else {
+      makeAlert("请输入密码，每行一个")
       return
     }
     
-    let passwordsArray = splitPasswords(passwords.stringValue)
+    // Doing the actual work
+    let passwordsArray = splitPasswords(passwords.string)
+
+    var secondPart = (protocolOptions.selectedItem?.title)! + ":"
+    secondPart += (encryptionMethods.selectedItem?.title)! + ":"
+    secondPart += (obfsOptions.selectedItem?.title)! + ":"
     
-    for item in passwordsArray {
-      var string = ""
+    
+    var thirdPart = "/?obfsparam="
+    
+    if obfsParameter.stringValue != "" {
+      thirdPart += encodeString(obfsParameter.stringValue)
+    }
+    
+    if protocolParameter.stringValue != "" {
+      thirdPart += "&protoparam="
+      thirdPart += encodeString(protocolParameter.stringValue)
+    }
+    
+    if serverName.stringValue != "" {
+      thirdPart += "&remarks="
+      thirdPart += encodeString(serverName.stringValue)
+    }
+
+    if group.stringValue != "" {
+      thirdPart += "&group="
+      thirdPart += encodeString(group.stringValue)
+    }
+    
+    var finalString = ""
+
+    for (index, value) in passwordsArray.enumerated() {
       
-      string.append(serverIP.stringValue + ":")
-      
-      string.append(String(startPort) + ":")
-      string.append((protocolOptions.selectedItem?.title)! + ":")
-      string.append((encryptionMethods.selectedItem?.title)! + ":")
-      string.append((obfsOptions.selectedItem?.title)! + ":")
-      
-      let trimmedPassword = encodeString(item)
-      string.append(trimmedPassword)
-      
-      string.append("/?obfsparam=")
-      
-      if obfsParameter.stringValue != "" || obfsOptions.selectedItem?.title != "plain" {
-        let trimmedObfsString = encodeString(obfsParameter.stringValue)
-        string.append(trimmedObfsString)
-      }
-      
-      if protocolParameter.stringValue != "" {
-        let trimmedObfsString = encodeString(protocolParameter.stringValue)
-        string.append("&protoparam=")
-        string.append(trimmedObfsString)
-      }
-      
-      if serverName.stringValue != "" {
-        let trimmedServerName = encodeString(serverName.stringValue)
-        string.append("&remarks=")
-        string.append(trimmedServerName)
-      }
-      
-      if group.stringValue != "" {
-        let trimmedGroup = encodeString(group.stringValue)
-        string.append("&group=")
-        string.append(trimmedGroup)
-      }
-      
-      var trimmedString = encodeString(string)
-      trimmedString = trimmedString.replacingOccurrences(of: "/", with: "_")
+      let string = serverIP.stringValue + ":" + String(startPort + index) + ":" + secondPart + encodeString(value) + thirdPart
+      let trimmedString = encodeString(string).replacingOccurrences(of: "/", with: "_")
       
       finalString.append("ssr://")
       finalString.append(trimmedString)
       finalString.append("\r")
-      passwordsCount += 1
-      startPort += 1
-      
-      if passwordsCount >= passwordsArray.count {
-        resultText.stringValue = finalString
-
-        break
-      }
-      
     }
+    
+    resultText.string = finalString
   }
   
-  let menus = ConfigurationOptions()
 }
 
+extension ViewController {
+  
+  func loadDefaults() {
+    
+    let defaults = UserDefaults.standard
+    
+    startPort.stringValue = defaults.string(forKey: "startPort") ?? ""
+    serverName.stringValue = defaults.string(forKey: "serverName") ?? ""
+    group.stringValue = defaults.string(forKey: "group") ?? ""
+    obfsParameter.stringValue = defaults.string(forKey: "obfsParameter") ?? ""
+    protocolParameter.stringValue = defaults.string(forKey: "protocolParameter") ?? ""
+    
+    obfsOptions.selectItem(withTitle: defaults.string(forKey: "obfsOptions") ?? menus.obfsOpitons.first!)
+    protocolOptions.selectItem(withTitle: defaults.string(forKey: "protocolOptions") ?? menus.protocolOptions.first!)
+    encryptionMethods.selectItem(withTitle: defaults.string(forKey: "encryptionMethods") ?? menus.encryptionMethods.first!)
+    print("done")
+  }
+  
+  
+  // Populate dropdown menu options from data model
+  func populateMenus() {
+    menus.encryptionMethods.forEach { encryptionMethods.addItem(withTitle: $0) }
+    
+    menus.obfsOpitons.forEach { obfsOptions.addItem(withTitle: $0) }
+    
+    menus.protocolOptions.forEach { protocolOptions.addItem(withTitle: $0) }
+  }
+  
+  func makeAlert(_ message: String) {
+    let alert = NSAlert()
+    
+    alert.messageText = message
+    alert.alertStyle = .critical
+    
+    alert.runModal()
+  }
+}
+
+
+class PlaceholderTextView: NSTextView {
+  @objc var placeholderAttributedString: NSAttributedString?
+}
