@@ -945,7 +945,7 @@
                                     <font key="font" usesAppearanceFont="YES"/>
                                 </buttonCell>
                                 <connections>
-                                    <segue destination="eXA-EG-9W1" kind="modal" id="KO7-bD-LpM"/>
+                                    <segue destination="eXA-EG-9W1" kind="modal" identifier="settings" id="KO7-bD-LpM"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wC-24-bDk">

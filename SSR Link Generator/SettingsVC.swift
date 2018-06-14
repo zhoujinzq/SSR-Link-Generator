@@ -8,11 +8,14 @@
 
 import Cocoa
 
+protocol UserDefaultsChanged {
+  func updateUI()
+}
+
 class SettingsVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    viewController.delegate = self
     populateMenus()
   }
   
@@ -25,8 +28,8 @@ class SettingsVC: NSViewController {
   @IBAction func saveSettingsClicked(_ sender: Any) {
     
     saveDefaults()
-    viewController.delegate?.loadDefaults()
-//    dismiss(self)
+    delegate?.updateUI()
+    dismiss(self)
   }
   
   
@@ -41,7 +44,7 @@ class SettingsVC: NSViewController {
   
   
   let menus = ConfigurationOptions()
-  let viewController = ViewController()
+  var delegate: UserDefaultsChanged?
   
 }
 
@@ -70,7 +73,6 @@ extension SettingsVC {
     if let port = Int(startPort.stringValue) {
       
       defaults.set(String(port), forKey: "startPort")
-      viewController.startPort.stringValue = String(port)
       
     } else if startPort.stringValue == "" {
       

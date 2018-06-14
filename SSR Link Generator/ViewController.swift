@@ -15,6 +15,8 @@ class ViewController: NSViewController {
     
     populateMenus()
     loadDefaults()
+    
+    
   }
 
   @IBAction func generateLink(_ sender: Any) {
@@ -37,7 +39,7 @@ class ViewController: NSViewController {
   @IBOutlet var resultText: NSTextView!
   
   let menus = ConfigurationOptions()
-  var delegate: SettingsVC?
+  var settingsVC = SettingsVC()
   
   
 
@@ -158,7 +160,7 @@ extension ViewController {
     obfsOptions.selectItem(withTitle: defaults.string(forKey: "obfsOptions") ?? menus.obfsOpitons.first!)
     protocolOptions.selectItem(withTitle: defaults.string(forKey: "protocolOptions") ?? menus.protocolOptions.first!)
     encryptionMethods.selectItem(withTitle: defaults.string(forKey: "encryptionMethods") ?? menus.encryptionMethods.first!)
-    print("done")
+    
   }
   
   
@@ -179,9 +181,33 @@ extension ViewController {
     
     alert.runModal()
   }
+  
+  override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+    if segue.identifier == "settings" {
+      let settingsVC = segue.destinationController as! SettingsVC
+      settingsVC.delegate = self
+    }
+  }
 }
 
 
 class PlaceholderTextView: NSTextView {
   @objc var placeholderAttributedString: NSAttributedString?
+}
+
+extension ViewController: UserDefaultsChanged {
+  func updateUI() {
+    
+    let defaults = UserDefaults.standard
+    startPort.stringValue = defaults.string(forKey: "startPort") ?? ""
+    serverName.stringValue = defaults.string(forKey: "serverName") ?? ""
+    group.stringValue = defaults.string(forKey: "group") ?? ""
+    obfsParameter.stringValue = defaults.string(forKey: "obfsParameter") ?? ""
+    protocolParameter.stringValue = defaults.string(forKey: "protocolParameter") ?? ""
+    
+    obfsOptions.selectItem(withTitle: defaults.string(forKey: "obfsOptions") ?? menus.obfsOpitons.first!)
+    protocolOptions.selectItem(withTitle: defaults.string(forKey: "protocolOptions") ?? menus.protocolOptions.first!)
+    encryptionMethods.selectItem(withTitle: defaults.string(forKey: "encryptionMethods") ?? menus.encryptionMethods.first!)
+    
+  }
 }
