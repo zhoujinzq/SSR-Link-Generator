@@ -12,7 +12,7 @@
 		B47E6C341FFA82D9001CFCF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47E6C331FFA82D9001CFCF0 /* ViewController.swift */; };
 		B47E6C361FFA82D9001CFCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B47E6C351FFA82D9001CFCF0 /* Assets.xcassets */; };
 		B47E6C391FFA82D9001CFCF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B47E6C371FFA82D9001CFCF0 /* Main.storyboard */; };
-		B4BE97B020C9126400F8D599 /* ConfigurationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BE97AF20C9126400F8D599 /* ConfigurationOptions.swift */; };
+		B4BE97B020C9126400F8D599 /* DropdownMenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BE97AF20C9126400F8D599 /* DropdownMenuItems.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +24,7 @@
 		B47E6C381FFA82D9001CFCF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B47E6C3A1FFA82D9001CFCF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B47E6C3B1FFA82D9001CFCF0 /* SSR_Link_Generator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SSR_Link_Generator.entitlements; sourceTree = "<group>"; };
-		B4BE97AF20C9126400F8D599 /* ConfigurationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationOptions.swift; sourceTree = "<group>"; };
+		B4BE97AF20C9126400F8D599 /* DropdownMenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuItems.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +64,7 @@
 				B41C9E1520CD77B500158848 /* SettingsVC.swift */,
 				B47E6C3A1FFA82D9001CFCF0 /* Info.plist */,
 				B47E6C3B1FFA82D9001CFCF0 /* SSR_Link_Generator.entitlements */,
-				B4BE97AF20C9126400F8D599 /* ConfigurationOptions.swift */,
+				B4BE97AF20C9126400F8D599 /* DropdownMenuItems.swift */,
 			);
 			path = "SSR Link Generator";
 			sourceTree = "<group>";
@@ -143,7 +143,7 @@
 			files = (
 				B47E6C341FFA82D9001CFCF0 /* ViewController.swift in Sources */,
 				B41C9E1620CD77B500158848 /* SettingsVC.swift in Sources */,
-				B4BE97B020C9126400F8D599 /* ConfigurationOptions.swift in Sources */,
+				B4BE97B020C9126400F8D599 /* DropdownMenuItems.swift in Sources */,
 				B47E6C321FFA82D9001CFCF0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,20 +15,26 @@ protocol UserDefaultsChanged {
 class SettingsVC: NSViewController {
   
   override func viewDidLoad() {
+    
     super.viewDidLoad()
     populateMenus()
+    loadDefaults()
+
   }
   
-  override func viewWillAppear() {
-
-    loadDefaults()
+  @IBAction func addDropdownItem(_ sender: NSMenuItem) {
+    let identifier = sender.identifier!.rawValue
+    let view = NSView()
     
+    menus.addItem(to: identifier, item: "")
+
   }
   
   @IBAction func saveSettingsClicked(_ sender: Any) {
     
     saveDefaults()
     delegate?.updateUI()
+
     dismiss(self)
   }
   
@@ -43,7 +49,7 @@ class SettingsVC: NSViewController {
   @IBOutlet weak var obfsOptions: NSPopUpButton!
   
   
-  let menus = ConfigurationOptions()
+  var menus = DropdownMenuItems()
   var delegate: UserDefaultsChanged?
   
 }
@@ -83,6 +89,7 @@ extension SettingsVC {
       let alert = NSAlert()
       alert.messageText = "初始端口请输入数字"
       alert.alertStyle = .critical
+      
       alert.runModal()
       
       return
@@ -100,10 +107,14 @@ extension SettingsVC {
   
   // Populate dropdown menu options from data model
   func populateMenus() {
+    
+
     menus.encryptionMethods.forEach { encryptionMethods.addItem(withTitle: $0) }
     
     menus.obfsOpitons.forEach { obfsOptions.addItem(withTitle: $0) }
     
     menus.protocolOptions.forEach { protocolOptions.addItem(withTitle: $0) }
   }
+  
+  
 }

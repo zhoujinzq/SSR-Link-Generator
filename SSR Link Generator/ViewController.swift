@@ -24,6 +24,7 @@ class ViewController: NSViewController {
     generateLink()
     
   }
+
   
   @IBOutlet weak var generateLinkButton: NSButton!
   @IBOutlet weak var startPort: NSTextField!
@@ -35,10 +36,10 @@ class ViewController: NSViewController {
   @IBOutlet weak var protocolOptions: NSPopUpButton!
   @IBOutlet weak var protocolParameter: NSTextField!
   @IBOutlet weak var group: NSTextField!
-  @IBOutlet var passwords: PlaceholderTextView!
+  @IBOutlet var passwords: NSTextView!
   @IBOutlet var resultText: NSTextView!
   
-  let menus = ConfigurationOptions()
+  let menus = DropdownMenuItems()
   var settingsVC = SettingsVC()
   
   
@@ -188,17 +189,15 @@ extension ViewController {
       settingsVC.delegate = self
     }
   }
+  
 }
 
-
-class PlaceholderTextView: NSTextView {
-  @objc var placeholderAttributedString: NSAttributedString?
-}
 
 extension ViewController: UserDefaultsChanged {
+  
   func updateUI() {
-    
     let defaults = UserDefaults.standard
+    
     startPort.stringValue = defaults.string(forKey: "startPort") ?? ""
     serverName.stringValue = defaults.string(forKey: "serverName") ?? ""
     group.stringValue = defaults.string(forKey: "group") ?? ""
@@ -211,3 +210,7 @@ extension ViewController: UserDefaultsChanged {
     
   }
 }
+
+
+
+
