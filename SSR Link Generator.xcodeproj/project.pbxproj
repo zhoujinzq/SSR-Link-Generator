@@ -8,15 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		B41C9E1620CD77B500158848 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41C9E1520CD77B500158848 /* SettingsVC.swift */; };
+		B47DFF2C20D4E9260037CE80 /* MenusTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47DFF2B20D4E9260037CE80 /* MenusTable.swift */; };
 		B47E6C321FFA82D9001CFCF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47E6C311FFA82D9001CFCF0 /* AppDelegate.swift */; };
 		B47E6C341FFA82D9001CFCF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47E6C331FFA82D9001CFCF0 /* ViewController.swift */; };
 		B47E6C361FFA82D9001CFCF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B47E6C351FFA82D9001CFCF0 /* Assets.xcassets */; };
 		B47E6C391FFA82D9001CFCF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B47E6C371FFA82D9001CFCF0 /* Main.storyboard */; };
-		B4BE97B020C9126400F8D599 /* DropdownMenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BE97AF20C9126400F8D599 /* DropdownMenuItems.swift */; };
+		B48A515020DBCA7B0042F658 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A514F20DBCA7B0042F658 /* Global.swift */; };
+		B4C27A7F20DA7E7500889ADC /* AddItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C27A7E20DA7E7500889ADC /* AddItemVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B41C9E1520CD77B500158848 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		B47DFF2B20D4E9260037CE80 /* MenusTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenusTable.swift; sourceTree = "<group>"; };
 		B47E6C2E1FFA82D9001CFCF0 /* SSR Link Generator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SSR Link Generator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47E6C311FFA82D9001CFCF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B47E6C331FFA82D9001CFCF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,7 +27,8 @@
 		B47E6C381FFA82D9001CFCF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B47E6C3A1FFA82D9001CFCF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B47E6C3B1FFA82D9001CFCF0 /* SSR_Link_Generator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SSR_Link_Generator.entitlements; sourceTree = "<group>"; };
-		B4BE97AF20C9126400F8D599 /* DropdownMenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuItems.swift; sourceTree = "<group>"; };
+		B48A514F20DBCA7B0042F658 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		B4C27A7E20DA7E7500889ADC /* AddItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +66,11 @@
 				B47E6C351FFA82D9001CFCF0 /* Assets.xcassets */,
 				B47E6C371FFA82D9001CFCF0 /* Main.storyboard */,
 				B41C9E1520CD77B500158848 /* SettingsVC.swift */,
+				B48A514F20DBCA7B0042F658 /* Global.swift */,
+				B4C27A7E20DA7E7500889ADC /* AddItemVC.swift */,
+				B47DFF2B20D4E9260037CE80 /* MenusTable.swift */,
 				B47E6C3A1FFA82D9001CFCF0 /* Info.plist */,
 				B47E6C3B1FFA82D9001CFCF0 /* SSR_Link_Generator.entitlements */,
-				B4BE97AF20C9126400F8D599 /* DropdownMenuItems.swift */,
 			);
 			path = "SSR Link Generator";
 			sourceTree = "<group>";
@@ -142,8 +148,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B47E6C341FFA82D9001CFCF0 /* ViewController.swift in Sources */,
+				B4C27A7F20DA7E7500889ADC /* AddItemVC.swift in Sources */,
+				B48A515020DBCA7B0042F658 /* Global.swift in Sources */,
+				B47DFF2C20D4E9260037CE80 /* MenusTable.swift in Sources */,
 				B41C9E1620CD77B500158848 /* SettingsVC.swift in Sources */,
-				B4BE97B020C9126400F8D599 /* DropdownMenuItems.swift in Sources */,
 				B47E6C321FFA82D9001CFCF0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,29 +2,28 @@
 //  ViewController.swift
 //  SSR Link Generator
 //
-//  Created by Lei Gao on 2018/01/01.
-//  Copyright © 2018 Lei Gao. All rights reserved.
+//  Created by Dunce on 2018/01/01.
+//  Copyright © 2018 Dunce. All rights reserved.
 //
 
 import Cocoa
 
 class ViewController: NSViewController {
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     populateMenus()
-    loadDefaults()
-    
+    updateUI()
     
   }
-
+  
   @IBAction func generateLink(_ sender: Any) {
     resultText.string = ""
     generateLink()
     
   }
-
+  
   
   @IBOutlet weak var generateLinkButton: NSButton!
   @IBOutlet weak var startPort: NSTextField!
@@ -39,11 +38,6 @@ class ViewController: NSViewController {
   @IBOutlet var passwords: NSTextView!
   @IBOutlet var resultText: NSTextView!
   
-  let menus = DropdownMenuItems()
-  var settingsVC = SettingsVC()
-  
-  
-
   // Encode string using base64 method
   func encodeString(_ string: String) -> String {
     let stringData = string.data(using: String.Encoding.ascii)
@@ -74,35 +68,35 @@ class ViewController: NSViewController {
       for item in passwords.split(separator: "\n") {
         passwordsArray.append(String(describing: item))
       }
-
+      
     } else {
       passwordsArray.append(passwords)
     }
     return passwordsArray
   }
-
+  
   // Generate Links
   func generateLink() {
     
     // Conditions check
     guard serverIP.stringValue != "" else {
-      makeAlert("请输入服务器IP或域名")
+      createAlert("请输入服务器IP或域名")
       return
     }
     
     guard let startPort = Int(self.startPort.stringValue) else {
-      makeAlert("初始端口请输入数字")
+      createAlert("初始端口请输入数字")
       return
     }
     
     guard passwords.string != "" else {
-      makeAlert("请输入密码，每行一个")
+      createAlert("请输入密码，每行一个")
       return
     }
     
     // Doing the actual work
     let passwordsArray = splitPasswords(passwords.string)
-
+    
     var secondPart = (protocolOptions.selectedItem?.title)! + ":"
     secondPart += (encryptionMethods.selectedItem?.title)! + ":"
     secondPart += (obfsOptions.selectedItem?.title)! + ":"
@@ -123,14 +117,14 @@ class ViewController: NSViewController {
       thirdPart += "&remarks="
       thirdPart += encodeString(serverName.stringValue)
     }
-
+    
     if group.stringValue != "" {
       thirdPart += "&group="
       thirdPart += encodeString(group.stringValue)
     }
     
     var finalString = ""
-
+    
     for (index, value) in passwordsArray.enumerated() {
       
       let string = serverIP.stringValue + ":" + String(startPort + index) + ":" + secondPart + encodeString(value) + thirdPart
@@ -146,70 +140,50 @@ class ViewController: NSViewController {
   
 }
 
-extension ViewController {
-  
-  func loadDefaults() {
-    
-    let defaults = UserDefaults.standard
-    
-    startPort.stringValue = defaults.string(forKey: "startPort") ?? ""
-    serverName.stringValue = defaults.string(forKey: "serverName") ?? ""
-    group.stringValue = defaults.string(forKey: "group") ?? ""
-    obfsParameter.stringValue = defaults.string(forKey: "obfsParameter") ?? ""
-    protocolParameter.stringValue = defaults.string(forKey: "protocolParameter") ?? ""
-    
-    obfsOptions.selectItem(withTitle: defaults.string(forKey: "obfsOptions") ?? menus.obfsOpitons.first!)
-    protocolOptions.selectItem(withTitle: defaults.string(forKey: "protocolOptions") ?? menus.protocolOptions.first!)
-    encryptionMethods.selectItem(withTitle: defaults.string(forKey: "encryptionMethods") ?? menus.encryptionMethods.first!)
-    
-  }
-  
-  
-  // Populate dropdown menu options from data model
-  func populateMenus() {
-    menus.encryptionMethods.forEach { encryptionMethods.addItem(withTitle: $0) }
-    
-    menus.obfsOpitons.forEach { obfsOptions.addItem(withTitle: $0) }
-    
-    menus.protocolOptions.forEach { protocolOptions.addItem(withTitle: $0) }
-  }
-  
-  func makeAlert(_ message: String) {
-    let alert = NSAlert()
-    
-    alert.messageText = message
-    alert.alertStyle = .critical
-    
-    alert.runModal()
-  }
-  
-  override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-    if segue.identifier == "settings" {
-      let settingsVC = segue.destinationController as! SettingsVC
-      settingsVC.delegate = self
-    }
-  }
-  
-}
-
-
 extension ViewController: UserDefaultsChanged {
   
   func updateUI() {
     let defaults = UserDefaults.standard
     
+    serverIP.stringValue = defaults.string(forKey: "serverIP") ?? ""
     startPort.stringValue = defaults.string(forKey: "startPort") ?? ""
     serverName.stringValue = defaults.string(forKey: "serverName") ?? ""
     group.stringValue = defaults.string(forKey: "group") ?? ""
     obfsParameter.stringValue = defaults.string(forKey: "obfsParameter") ?? ""
     protocolParameter.stringValue = defaults.string(forKey: "protocolParameter") ?? ""
     
-    obfsOptions.selectItem(withTitle: defaults.string(forKey: "obfsOptions") ?? menus.obfsOpitons.first!)
-    protocolOptions.selectItem(withTitle: defaults.string(forKey: "protocolOptions") ?? menus.protocolOptions.first!)
-    encryptionMethods.selectItem(withTitle: defaults.string(forKey: "encryptionMethods") ?? menus.encryptionMethods.first!)
+    populateMenus()
+    obfsOptions.selectItem(withTitle: defaults.string(forKey: "obfsOptions") ?? AppDelegate().obfsOptions.first!)
+    protocolOptions.selectItem(withTitle: defaults.string(forKey: "protocolOptions") ?? AppDelegate().protocolOptions.first!)
+    encryptionMethods.selectItem(withTitle: defaults.string(forKey: "encryptionMethods") ?? AppDelegate().encryptionMethods.first!)
     
   }
+  
+  // Populate dropdown menu options from data model
+  func populateMenus() {
+    
+    let defaults = UserDefaults.standard
+    defaults.array(forKey: "encryptionMethods")?.forEach { encryptionMethods.addItem(withTitle: $0 as! String) }
+    defaults.array(forKey: "obfsOptions")?.forEach { obfsOptions.addItem(withTitle: $0 as! String) }
+    defaults.array(forKey: "protocolOptions")?.forEach { protocolOptions.addItem(withTitle: $0 as! String) }
+  }
+    
+  override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+    
+    if segue.identifier == "settings" {
+      let windowController = segue.destinationController as! NSWindowController
+      let settingsVC = windowController.contentViewController as! SettingsVC
+      settingsVC.delegate = self
+    }
+    
+    if segue.identifier == "addItem" {
+      let addItemVC = segue.destinationController as! AddItemVC
+      addItemVC.delegate = self
+    }
+  }
+  
 }
+
 
 
 
