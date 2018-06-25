@@ -14,7 +14,7 @@ class ViewController: NSViewController {
     super.viewDidLoad()
     
     populateMenus()
-    updateUI()
+    loadTable(label: "all")
     
   }
   
@@ -142,7 +142,7 @@ class ViewController: NSViewController {
 
 extension ViewController: UserDefaultsChanged {
   
-  func updateUI() {
+  func loadTable(label: String) {
     let defaults = UserDefaults.standard
     
     serverIP.stringValue = defaults.string(forKey: "serverIP") ?? ""

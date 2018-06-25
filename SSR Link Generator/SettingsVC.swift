@@ -8,35 +8,36 @@
 
 import Cocoa
 
-protocol UserDefaultsChanged {
-  func updateUI()
+@objc protocol UserDefaultsChanged {
+  func loadTable(label: String)
+  @objc optional func addToTemporaryList(key: String, array: [String])
 }
 
 
-class SettingsVC: NSViewController{
+class SettingsVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    loadTable()
+    loadTable(label: tableLabel)
   }
   
   @IBAction func dropdownClicked(_ sender: NSPopUpButton) {
-    tableIdentifier = sender.selectedItem!.title
-    loadTable()
+    tableLabel = sender.selectedItem!.title
+    loadTable(label: tableLabel)
     tableView.reloadData()
   }
   
   @IBAction func saveSettingsClicked(_ sender: Any) {
     
-    delegate?.updateUI()
+    delegate?.loadTable(label: tableLabel)
     self.view.window?.performClose(nil)
   }
   
   @IBAction func removeTableItem(_ sender: Any) {
     
     guard tableView.numberOfRows > 1 else {
-      createAlert("无法删除\(tableIdentifier)中的最后一个选项")
+      createAlert("无法删除\(tableLabel)中的最后一个选项")
       return
     }
     
@@ -45,17 +46,17 @@ class SettingsVC: NSViewController{
       return
     }
     
-    let currentTable = getTable(identifier: tableIdentifier)
+    let currentTable = getTable(identifier: tableLabel)
     var currentArray = defaults.array(forKey: currentTable)!
     currentArray.remove(at: tableView.selectedRow)
     defaults.set(currentArray, forKey: currentTable)
-    updateUI()
+    loadTable(label: tableLabel)
   }
  
   override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
     if segue.identifier == "addItem" {
       let addItemVC = segue.destinationController as! AddItemVC
-      addItemVC.tableIdentifier = tableIdentifier
+      addItemVC.tableIdentifier = tableLabel
       addItemVC.delegate = self
     }
   }
@@ -66,23 +67,23 @@ class SettingsVC: NSViewController{
   
   var menusTable: MenusTable?
   var delegate: UserDefaultsChanged?
-  var tableIdentifier = "加密"
+  var tableLabel = "加密"
   let defaults = UserDefaults.standard
-  
+
+  var modifiedList = [String: [String]]()
   
 }
 
 extension SettingsVC: UserDefaultsChanged {
   
-  func updateUI() {
-    loadTable()
-  }
-  
-  func loadTable() {
-    menusTable = MenusTable(identifier: tableIdentifier)
+  func loadTable(label: String) {
+    menusTable = MenusTable(label: label)
     tableView.dataSource = menusTable
     tableView.delegate = menusTable
     
   }
   
+  func addToTemporaryList(key: String, array: [String]) {
+		modifiedList.updateValue(array, forKey: key)
+  }
 }

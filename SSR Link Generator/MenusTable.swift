@@ -11,17 +11,17 @@ import Cocoa
 
 class MenusTable: NSObject, NSTableViewDelegate, NSTableViewDataSource {
   
-  var identifier: String
+  var label: String
   
-  init(identifier: String) {
-    self.identifier = identifier
+  init(label: String) {
+    self.label = label
   }
   
   var tableToShow: [String] {
     
     let defaults = UserDefaults.standard
     
-    switch identifier {
+    switch label {
     case "协议":
       return defaults.array(forKey: "protocolOptions") as! [String]
     case "混淆":

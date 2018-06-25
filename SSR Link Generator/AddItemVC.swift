@@ -37,8 +37,10 @@ class AddItemVC: NSViewController {
     
 		currentArray.append(stringToAdd)
     
-    defaults.set(currentArray, forKey: arrayToAdd)
-    delegate?.updateUI()
+//    defaults.set(currentArray, forKey: arrayToAdd)
+    delegate?.addToTemporaryList!(key: arrayToAdd, array: currentArray)
+    delegate?.loadTable(label: tableIdentifier!)
+    
     dismiss(self)
   }
   
