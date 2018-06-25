@@ -8,8 +8,8 @@
 
 import Cocoa
 
-@objc protocol UserDefaultsChanged {
-  @objc optional func updateUI()
+protocol UserDefaultsChanged {
+  func updateUI()
 }
 
 
@@ -17,7 +17,7 @@ class SettingsVC: NSViewController{
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     loadTable()
   }
   
@@ -29,7 +29,7 @@ class SettingsVC: NSViewController{
   
   @IBAction func saveSettingsClicked(_ sender: Any) {
     
-    delegate?.updateUI!()
+    delegate?.updateUI()
     self.view.window?.performClose(nil)
   }
   
@@ -44,18 +44,18 @@ class SettingsVC: NSViewController{
       createAlert("请先选中要删除的值")
       return
     }
-
+    
     let currentTable = getTable(identifier: tableIdentifier)
     var currentArray = defaults.array(forKey: currentTable)!
     currentArray.remove(at: tableView.selectedRow)
     defaults.set(currentArray, forKey: currentTable)
     updateUI()
   }
-  
+ 
   override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
     if segue.identifier == "addItem" {
       let addItemVC = segue.destinationController as! AddItemVC
-			addItemVC.tableIdentifier = tableIdentifier
+      addItemVC.tableIdentifier = tableIdentifier
       addItemVC.delegate = self
     }
   }
@@ -68,10 +68,12 @@ class SettingsVC: NSViewController{
   var delegate: UserDefaultsChanged?
   var tableIdentifier = "加密"
   let defaults = UserDefaults.standard
+  
+  
 }
 
 extension SettingsVC: UserDefaultsChanged {
-
+  
   func updateUI() {
     loadTable()
   }
@@ -80,7 +82,7 @@ extension SettingsVC: UserDefaultsChanged {
     menusTable = MenusTable(identifier: tableIdentifier)
     tableView.dataSource = menusTable
     tableView.delegate = menusTable
-
+    
   }
   
 }

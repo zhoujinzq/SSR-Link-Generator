@@ -175,13 +175,8 @@ extension ViewController: UserDefaultsChanged {
       let settingsVC = windowController.contentViewController as! SettingsVC
       settingsVC.delegate = self
     }
-    
-    if segue.identifier == "addItem" {
-      let addItemVC = segue.destinationController as! AddItemVC
-      addItemVC.delegate = self
-    }
+
   }
-  
 }
 
 

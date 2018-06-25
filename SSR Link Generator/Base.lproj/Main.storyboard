@@ -948,7 +948,7 @@
                                     <font key="font" usesAppearanceFont="YES"/>
                                 </buttonCell>
                                 <connections>
-                                    <segue destination="M6g-Wd-n6X" kind="show" identifier="settings" id="AMI-s7-28S"/>
+                                    <segue destination="M6g-Wd-n6X" kind="modal" identifier="settings" id="AMI-s7-28S"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wC-24-bDk">
@@ -1294,17 +1294,28 @@
                                 <rect key="frame" x="125" y="113" width="37" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="IE7-E9-Q8z">
                                     <font key="font" metaFont="system"/>
+                                    <color key="textColor" red="1" green="0.31911278630000001" blue="0.32748320889999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jUA-Jq-jyZ">
+                                <rect key="frame" x="158" y="113" width="84" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="菜单的选项：" id="uoJ-8Y-l1b">
+                                    <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="jUA-Jq-jyZ" firstAttribute="leading" secondItem="MfA-VM-6cP" secondAttribute="trailing" id="AYD-a4-oiD"/>
                             <constraint firstItem="kYW-av-jds" firstAttribute="top" secondItem="dV3-NR-xmM" secondAttribute="top" constant="20" id="Aqb-bJ-Psl"/>
                             <constraint firstItem="kYW-av-jds" firstAttribute="leading" secondItem="dV3-NR-xmM" secondAttribute="leading" constant="20" id="FKy-IT-PAX"/>
                             <constraint firstItem="MfA-VM-6cP" firstAttribute="leading" secondItem="kYW-av-jds" secondAttribute="trailing" id="LcG-Jz-5Or"/>
                             <constraint firstItem="MfA-VM-6cP" firstAttribute="centerY" secondItem="kYW-av-jds" secondAttribute="centerY" id="TIv-gN-Hd9"/>
                             <constraint firstItem="MfA-VM-6cP" firstAttribute="height" secondItem="kYW-av-jds" secondAttribute="height" id="Xne-ZK-cpA"/>
+                            <constraint firstItem="jUA-Jq-jyZ" firstAttribute="centerY" secondItem="MfA-VM-6cP" secondAttribute="centerY" id="pJq-WN-S1x"/>
+                            <constraint firstItem="jUA-Jq-jyZ" firstAttribute="height" secondItem="MfA-VM-6cP" secondAttribute="height" id="us7-Ja-dd7"/>
                         </constraints>
                     </view>
                     <connections>
