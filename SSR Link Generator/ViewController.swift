@@ -28,7 +28,7 @@ class ViewController: NSViewController {
   
   override func viewWillDisappear() {
     
-    // When aotu fill on next run is turned on and app is about to be clsoed,
+    // When auto fill on next run is turned on and app is about to be clsoed, save values to userDefaults
     if defaults.integer(forKey: "autoFillOnNextRun") == 1 {
       
       defaults.set(startPort.stringValue, forKey: "startPort")
@@ -124,7 +124,7 @@ class ViewController: NSViewController {
       return
     }
     
-    guard let startPort = Int(self.startPort.stringValue) else {
+    guard let startPort = Int(startPort.stringValue) else {
       createAlert("初始端口请输入数字")
       return
     }
@@ -134,50 +134,66 @@ class ViewController: NSViewController {
       return
     }
     
+    // For dispatchQueue to work, get out values from UI elements
+    let passwordsString = passwords.string
+    let selectedProtocolOption = protocolOptions.titleOfSelectedItem
+    let selectedEncryption = encryptionMethods.titleOfSelectedItem
+    let selectedObfs = obfsOptions.titleOfSelectedItem
+    let obfsString = obfsParameter.stringValue
+    let protocolString = protocolParameter.stringValue
+    let remarkString = serverName.stringValue
+    let groupString = group.stringValue
+    let serverIPString = serverIP.stringValue
+    
     // Doing the actual work, some string values in ssr link are base 64 encoded two times.
-    let passwordsArray = splitPasswords(passwords.string)
-    
-    var secondPart = (protocolOptions.selectedItem?.title)! + ":"
-    secondPart += (encryptionMethods.selectedItem?.title)! + ":"
-    secondPart += (obfsOptions.selectedItem?.title)! + ":"
-    
-    
-    var thirdPart = "/?obfsparam="
-    
-    if obfsParameter.stringValue != "" {
-      thirdPart += encodeString(obfsParameter.stringValue)
-    }
-    
-    if protocolParameter.stringValue != "" {
-      thirdPart += "&protoparam="
-      thirdPart += encodeString(protocolParameter.stringValue)
-    }
-    
-    if serverName.stringValue != "" {
-      thirdPart += "&remarks="
-      thirdPart += encodeString(serverName.stringValue)
-    }
-    
-    if group.stringValue != "" {
-      thirdPart += "&group="
-      thirdPart += encodeString(group.stringValue)
-    }
-    
-    var finalString = ""
-    
-    for (index, password) in passwordsArray.enumerated() {
+    DispatchQueue.global().async { [unowned self] in
       
-      let string = serverIP.stringValue + ":" + String(startPort + index) + ":" + secondPart + encodeString(password) + thirdPart
-      let trimmedString = encodeString(string)
+      let passwordsArray = self.splitPasswords(passwordsString)
       
-      finalString.append("ssr://")
-      finalString.append(trimmedString)
-      finalString.append("\r")
+      var secondPart = (selectedProtocolOption)! + ":"
+      secondPart += (selectedEncryption)! + ":"
+      secondPart += (selectedObfs)! + ":"
+      
+      
+      var thirdPart = "/?obfsparam="
+      
+      if obfsString != "" {
+        thirdPart += self.encodeString(obfsString)
+      }
+      
+      if protocolString != "" {
+        thirdPart += "&protoparam="
+        thirdPart += self.encodeString(protocolString)
+      }
+      
+      if remarkString != "" {
+        thirdPart += "&remarks="
+        thirdPart += self.encodeString(remarkString)
+      }
+      
+      if groupString != "" {
+        thirdPart += "&group="
+        thirdPart += self.encodeString(groupString)
+      }
+      
+      var finalString = ""
+      
+      
+      for (index, password) in passwordsArray.enumerated() {
+        
+        let string = serverIPString + ":" + String(startPort + index) + ":" + secondPart + self.encodeString(password) + thirdPart
+        let trimmedString = self.encodeString(string)
+        
+        finalString.append("ssr://")
+        finalString.append(trimmedString)
+        finalString.append("\r")
+      }
+      
+      DispatchQueue.main.async {
+        self.resultText.string = finalString
+      }
     }
-    
-    resultText.string = finalString
   }
-  
 }
 
 extension ViewController: ValueChanged {
