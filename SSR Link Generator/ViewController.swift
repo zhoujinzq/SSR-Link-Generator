@@ -14,14 +14,42 @@ class ViewController: NSViewController {
     super.viewDidLoad()
     
     populateMenus()
-    loadTable(label: "all")
+    
+    /*
+     This viewController is hard coded to load all 3 dropdown menus and other default values.
+     So it ignores loadTable() function's parameter(used as dropdown menus' datasource).
+     To fulfill function's requirement, a random array of strings is used here.
+     */
+    if defaults.integer(forKey: "autoFillOnNextRun") == 1 {
+      loadTable(tableToShow: ["all"])
+    }
     
   }
   
-  @IBAction func generateLink(_ sender: Any) {
-    resultText.string = ""
-    generateLink()
+  override func viewWillDisappear() {
     
+    // When aotu fill on next run is turned on and app is about to be clsoed,
+    if defaults.integer(forKey: "autoFillOnNextRun") == 1 {
+      
+      defaults.set(startPort.stringValue, forKey: "startPort")
+      defaults.set(serverIP.stringValue, forKey: "serverIP")
+      defaults.set(serverName.stringValue, forKey: "serverName")
+      defaults.set(group.stringValue, forKey: "group")
+      defaults.set(obfsParameter.stringValue, forKey: "obfsParameter")
+      defaults.set(protocolParameter.stringValue, forKey: "protocolParameter")
+      
+      defaults.set(obfsOptions.titleOfSelectedItem, forKey: "selectedObfs")
+      defaults.set(encryptionMethods.titleOfSelectedItem, forKey: "selectedEncryption")
+      defaults.set(protocolOptions.titleOfSelectedItem, forKey: "selectedProtocol")
+    }
+  }
+  
+  @IBAction func generateLink(_ sender: Any) {
+    
+    // Clear result text first, so texts from last result won't get mixed with this one
+    resultText.string = ""
+    
+    generateLink()
   }
   
   
@@ -38,11 +66,17 @@ class ViewController: NSViewController {
   @IBOutlet var passwords: NSTextView!
   @IBOutlet var resultText: NSTextView!
   
+  let defaults = UserDefaults.standard
+  
   // Encode string using base64 method
   func encodeString(_ string: String) -> String {
+    
     let stringData = string.data(using: String.Encoding.ascii)
     let encodedString = stringData!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
-    let trimmedString = encodedString.replacingOccurrences(of: "=", with: "")
+    
+    // To meet ssr link requirment, "=" marks are removed, and "/" marks are repalced with "_"
+    var trimmedString = encodedString.replacingOccurrences(of: "=", with: "")
+    trimmedString = encodedString.replacingOccurrences(of: "/", with: "_")
     return trimmedString
   }
   
@@ -51,27 +85,30 @@ class ViewController: NSViewController {
     
     var passwordsArray = [String]()
     
+    // Line breaks in excel are \r\n, other text editors may vary
     if passwords.contains("\r\n") {
       
-      for item in passwords.split(separator: "\r\n") {
-        passwordsArray.append(String(describing: item))
+      passwords.split(separator: "\r\n").forEach {
+        passwordsArray.append(String($0))
       }
       
     } else if passwords.contains("\r") {
       
-      for item in passwords.split(separator: "\r") {
-        passwordsArray.append(String(describing: item))
+      passwords.split(separator: "\r").forEach {
+        passwordsArray.append(String($0))
       }
       
     } else if passwords.contains("\n") {
       
-      for item in passwords.split(separator: "\n") {
-        passwordsArray.append(String(describing: item))
+      passwords.split(separator: "\n").forEach {
+        passwordsArray.append(String($0))
       }
       
+      // If passwords field only contains one line
     } else {
       passwordsArray.append(passwords)
     }
+    
     return passwordsArray
   }
   
@@ -94,7 +131,7 @@ class ViewController: NSViewController {
       return
     }
     
-    // Doing the actual work
+    // Doing the actual work, some string values in ssr link are base 64 encoded two times.
     let passwordsArray = splitPasswords(passwords.string)
     
     var secondPart = (protocolOptions.selectedItem?.title)! + ":"
@@ -125,10 +162,10 @@ class ViewController: NSViewController {
     
     var finalString = ""
     
-    for (index, value) in passwordsArray.enumerated() {
+    for (index, password) in passwordsArray.enumerated() {
       
-      let string = serverIP.stringValue + ":" + String(startPort + index) + ":" + secondPart + encodeString(value) + thirdPart
-      let trimmedString = encodeString(string).replacingOccurrences(of: "/", with: "_")
+      let string = serverIP.stringValue + ":" + String(startPort + index) + ":" + secondPart + encodeString(password) + thirdPart
+      let trimmedString = encodeString(string)
       
       finalString.append("ssr://")
       finalString.append(trimmedString)
@@ -140,10 +177,9 @@ class ViewController: NSViewController {
   
 }
 
-extension ViewController: UserDefaultsChanged {
+extension ViewController: ValueChanged {
   
-  func loadTable(label: String) {
-    let defaults = UserDefaults.standard
+  func loadTable(tableToShow: [String]) {
     
     serverIP.stringValue = defaults.string(forKey: "serverIP") ?? ""
     startPort.stringValue = defaults.string(forKey: "startPort") ?? ""
@@ -152,30 +188,37 @@ extension ViewController: UserDefaultsChanged {
     obfsParameter.stringValue = defaults.string(forKey: "obfsParameter") ?? ""
     protocolParameter.stringValue = defaults.string(forKey: "protocolParameter") ?? ""
     
-    populateMenus()
-    obfsOptions.selectItem(withTitle: defaults.string(forKey: "obfsOptions") ?? AppDelegate().obfsOptions.first!)
-    protocolOptions.selectItem(withTitle: defaults.string(forKey: "protocolOptions") ?? AppDelegate().protocolOptions.first!)
-    encryptionMethods.selectItem(withTitle: defaults.string(forKey: "encryptionMethods") ?? AppDelegate().encryptionMethods.first!)
+    // Select items in dropdown menus
+    obfsOptions.selectItem(withTitle: defaults.string(forKey: "selectedObfs") ?? AppDelegate().obfsOptions.first!)
+    protocolOptions.selectItem(withTitle: defaults.string(forKey: "selectedProtocol") ?? AppDelegate().protocolOptions.first!)
+    encryptionMethods.selectItem(withTitle: defaults.string(forKey: "selectedEncryption") ?? AppDelegate().encryptionMethods.first!)
     
   }
   
   // Populate dropdown menu options from data model
   func populateMenus() {
     
-    let defaults = UserDefaults.standard
-    defaults.array(forKey: "encryptionMethods")?.forEach { encryptionMethods.addItem(withTitle: $0 as! String) }
-    defaults.array(forKey: "obfsOptions")?.forEach { obfsOptions.addItem(withTitle: $0 as! String) }
-    defaults.array(forKey: "protocolOptions")?.forEach { protocolOptions.addItem(withTitle: $0 as! String) }
+    encryptionMethods.removeAllItems()
+    obfsOptions.removeAllItems()
+    protocolOptions.removeAllItems()
+    // If those keys in userDefaults returns nil (say it's the 1st time app launches, we set
+    // userDefaults in appDelegate, so this works anyway.
+    defaults.array(forKey: "加密方式")?.forEach { encryptionMethods.addItem(withTitle: $0 as! String) }
+    defaults.array(forKey: "混淆方式")?.forEach { obfsOptions.addItem(withTitle: $0 as! String) }
+    defaults.array(forKey: "协议列表")?.forEach { protocolOptions.addItem(withTitle: $0 as! String) }
   }
-    
+  
   override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
     
+    /*
+     In order to disable the minimize and resize button for settings view, we wrap its
+     viewController in a window and set those behaviors in that window's attributes inspector
+     */
     if segue.identifier == "settings" {
       let windowController = segue.destinationController as! NSWindowController
       let settingsVC = windowController.contentViewController as! SettingsVC
       settingsVC.delegate = self
     }
-
   }
 }
 

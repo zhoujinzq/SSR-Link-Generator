@@ -11,24 +11,10 @@ import Cocoa
 
 class MenusTable: NSObject, NSTableViewDelegate, NSTableViewDataSource {
   
-  var label: String
+  var tableToShow: [String]
   
-  init(label: String) {
-    self.label = label
-  }
-  
-  var tableToShow: [String] {
-    
-    let defaults = UserDefaults.standard
-    
-    switch label {
-    case "协议":
-      return defaults.array(forKey: "protocolOptions") as! [String]
-    case "混淆":
-      return defaults.array(forKey: "obfsOptions") as! [String]
-    default:
-      return defaults.array(forKey: "encryptionMethods") as! [String]
-    }
+  init(_ tableToShow: [String]) {
+    self.tableToShow = tableToShow
   }
   
   func numberOfRows(in tableView: NSTableView) -> Int {

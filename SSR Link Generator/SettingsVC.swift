@@ -8,34 +8,35 @@
 
 import Cocoa
 
-@objc protocol UserDefaultsChanged {
-  func loadTable(label: String)
-  @objc optional func addToTemporaryList(key: String, array: [String])
-}
-
-
 class SettingsVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    loadTable(label: tableLabel)
-  }
-  
-  @IBAction func dropdownClicked(_ sender: NSPopUpButton) {
-    tableLabel = sender.selectedItem!.title
-    loadTable(label: tableLabel)
-    tableView.reloadData()
-  }
-  
-  @IBAction func saveSettingsClicked(_ sender: Any) {
+    saveDefaultsCheckbox.state = defaults.integer(forKey: "autoFillOnNextRun") == 0 ? .off : .on
     
-    delegate?.loadTable(label: tableLabel)
-    self.view.window?.performClose(nil)
+    loadTable(tableToShow: getTableArrayFromDefaults(tableLabel: tableLabel))
+  }
+  
+  // Change table contents base on user selection
+  @IBAction func dropdownClicked(_ sender: NSPopUpButton) {
+    
+    // 'tableLabel' is used elsewhere in this vc, so its value must reflect
+    // which array is been selected and modifiedat accordingly at any moment
+    tableLabel = sender.selectedItem!.title
+    
+    /*
+     If the selected array has been modified but not yet saved, load the unsaved array
+     as table's datasource, otherwise use the array in userDefaults as datasource
+     */
+    loadTable(tableToShow: getCurrentArray())
+    
+    tableView.reloadData()
   }
   
   @IBAction func removeTableItem(_ sender: Any) {
     
+    // Deletion of last item in a menu is not allowed
     guard tableView.numberOfRows > 1 else {
       createAlert("无法删除\(tableLabel)中的最后一个选项")
       return
@@ -46,44 +47,77 @@ class SettingsVC: NSViewController {
       return
     }
     
-    let currentTable = getTable(identifier: tableLabel)
-    var currentArray = defaults.array(forKey: currentTable)!
+    /*
+     Get the array to be modified, set the 'currentArray' data from 'modifiedList' allows
+     users to keep their unsaved modification and going from there.
+     */
+    var currentArray = getCurrentArray()
+    
     currentArray.remove(at: tableView.selectedRow)
-    defaults.set(currentArray, forKey: currentTable)
-    loadTable(label: tableLabel)
+    modifiedList.updateValue(currentArray, forKey: tableLabel)
+    
+    // Load list from unsaved array
+    loadTable(tableToShow: modifiedList[tableLabel]!)
   }
- 
-  override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-    if segue.identifier == "addItem" {
-      let addItemVC = segue.destinationController as! AddItemVC
-      addItemVC.tableIdentifier = tableLabel
-      addItemVC.delegate = self
+  
+  @IBAction func saveSettingsClicked(_ sender: Any) {
+    
+		defaults.set(saveDefaultsCheckbox.state.rawValue, forKey: "autoFillOnNextRun")
+    
+    modifiedList.forEach { (key, value) in
+      defaults.set(value, forKey: key)
     }
+    
+    // Clear dictionary since all changes have been saved to userDefaults
+    modifiedList.removeAll(keepingCapacity: false)
+    
+    // Reload all dropdown menu items in main window
+    delegate?.populateMenus!()
+    
+    self.view.window?.performClose(nil)
   }
   
-  
-  
+  @IBOutlet weak var dropdownMenu: NSPopUpButton!
   @IBOutlet weak var tableView: NSTableView!
+  @IBOutlet weak var saveDefaultsCheckbox: NSButtonCell!
+  
   
   var menusTable: MenusTable?
-  var delegate: UserDefaultsChanged?
-  var tableLabel = "加密"
+  var delegate: ValueChanged?
+  var tableLabel = "加密方式"
   let defaults = UserDefaults.standard
-
+  
+  // To track all modified but not saved dropdown menu items
   var modifiedList = [String: [String]]()
   
-}
-
-extension SettingsVC: UserDefaultsChanged {
-  
-  func loadTable(label: String) {
-    menusTable = MenusTable(label: label)
-    tableView.dataSource = menusTable
-    tableView.delegate = menusTable
+  override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+    
+    if segue.identifier == "addItem" {
+      let addItemVC = segue.destinationController as! AddItemVC
+      addItemVC.tableLabel = tableLabel
+      addItemVC.delegate = self
+    }
     
   }
   
+}
+
+extension SettingsVC: ValueChanged {
+  
+  func loadTable(tableToShow: [String]) {
+    
+    menusTable = MenusTable(tableToShow)
+    tableView.dataSource = menusTable
+    tableView.delegate = menusTable
+  }
+  
+  // Wrapped in a function so this can be called in AddItemVC as delegate method
   func addToTemporaryList(key: String, array: [String]) {
-		modifiedList.updateValue(array, forKey: key)
+    modifiedList.updateValue(array, forKey: key)
+  }
+  
+  // Wrapped in a function so this can be called in AddItemVC as delegate method
+  func getCurrentArray() -> [String] {
+    return (modifiedList[tableLabel] != nil) ? modifiedList[tableLabel]! : getTableArrayFromDefaults(tableLabel: tableLabel)
   }
 }

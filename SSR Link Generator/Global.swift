@@ -9,20 +9,38 @@
 import Cocoa
 
 
+@objc protocol ValueChanged {
+  
+  func loadTable(tableToShow: [String])
+  @objc optional func addToTemporaryList(key: String, array: [String])
+  @objc optional func getCurrentArray() -> [String]
+  @objc optional func populateMenus()
+  
+}
+
 func createAlert(_ message: String) {
+  
   let alert = NSAlert()
   alert.alertStyle = .critical
   alert.messageText = message
   alert.runModal()
 }
 
-func getTable(identifier: String) -> String {
-  switch identifier {
-  case "混淆":
-    return "obfsOptions"
-  case "协议":
-    return "protocolOptions"
-  default:
-    return "encryptionMethods"
+// Returns an array according to its label
+func getTableArrayFromDefaults(tableLabel: String) -> [String] {
+  
+  var tableToShow: [String] {
+    
+    let defaults = UserDefaults.standard
+    
+    switch tableLabel {
+    case "协议列表":
+      return defaults.array(forKey: "协议列表") as! [String]
+    case "混淆方式":
+      return defaults.array(forKey: "混淆方式") as! [String]
+    default:
+      return defaults.array(forKey: "加密方式") as! [String]
+    }
   }
+  return tableToShow
 }

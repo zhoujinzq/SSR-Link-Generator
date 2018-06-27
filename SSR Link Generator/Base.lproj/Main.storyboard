@@ -685,7 +685,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="SSR Link Generator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="SSR Link Generator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="1000" height="700"/>
@@ -714,9 +714,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <gridView fixedFrame="YES" xPlacement="trailing" yPlacement="center" rowAlignment="none" rowSpacing="18" columnSpacing="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="APm-ry-aiu">
+                            <gridView xPlacement="trailing" yPlacement="center" rowAlignment="none" rowSpacing="18" columnSpacing="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="APm-ry-aiu">
                                 <rect key="frame" x="38" y="360" width="794" height="102"/>
-                                <autoresizingMask key="autoresizingMask"/>
                                 <rows>
                                     <gridRow yPlacement="center" id="FVx-IG-18z"/>
                                     <gridRow id="lBB-cE-QNj"/>
@@ -837,7 +836,7 @@
                                         <popUpButton key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jcE-5J-pah">
                                             <rect key="frame" x="361" y="38" width="145" height="26"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="140" id="GyB-q4-pml"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="GyB-q4-pml"/>
                                             </constraints>
                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="PEG-dl-PQ1">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -940,21 +939,9 @@
                                     </gridCell>
                                 </gridCells>
                             </gridView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdr-Tp-lt5">
-                                <rect key="frame" x="835" y="343" width="67" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="设置" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NU3-bQ-Kr8">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                </buttonCell>
-                                <connections>
-                                    <segue destination="M6g-Wd-n6X" kind="modal" identifier="settings" id="AMI-s7-28S"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wC-24-bDk">
-                                <rect key="frame" x="862" y="390" width="41" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="生成" bezelStyle="shadowlessSquare" imagePosition="left" borderStyle="border" inset="2" id="hZG-qB-BCq">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3wC-24-bDk">
+                                <rect key="frame" x="834" y="393" width="67" height="32"/>
+                                <buttonCell key="cell" type="push" title="生成" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="hZG-qB-BCq">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1012,11 +999,31 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vdr-Tp-lt5">
+                                <rect key="frame" x="834" y="353" width="67" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="55" id="0gM-4z-i3B"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="设置" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NU3-bQ-Kr8">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                </buttonCell>
+                                <connections>
+                                    <segue destination="M6g-Wd-n6X" kind="modal" identifier="settings" id="AMI-s7-28S"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="3wC-24-bDk" secondAttribute="trailing" constant="105" id="0bt-TT-pxU"/>
+                            <constraint firstItem="Vdr-Tp-lt5" firstAttribute="top" secondItem="3wC-24-bDk" secondAttribute="bottom" constant="19" id="2aa-Jf-IVS"/>
                             <constraint firstItem="12O-FD-Uiv" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="186" id="EOj-Pa-qe0"/>
                             <constraint firstItem="12O-FD-Uiv" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="38" id="Gew-bS-oIJ"/>
                             <constraint firstItem="5K9-uI-1LF" firstAttribute="leading" secondItem="12O-FD-Uiv" secondAttribute="trailing" constant="30" id="Qtk-Jb-rdd"/>
+                            <constraint firstItem="9kJ-4J-NYx" firstAttribute="top" secondItem="Vdr-Tp-lt5" secondAttribute="bottom" constant="47" id="c6u-2P-fhB"/>
+                            <constraint firstAttribute="trailing" secondItem="Vdr-Tp-lt5" secondAttribute="trailing" constant="105" id="ccT-FW-BzC"/>
+                            <constraint firstItem="Vdr-Tp-lt5" firstAttribute="leading" secondItem="3wC-24-bDk" secondAttribute="leading" id="leC-Dk-MXx"/>
+                            <constraint firstItem="Vdr-Tp-lt5" firstAttribute="bottom" secondItem="APm-ry-aiu" secondAttribute="bottom" id="nVh-Or-WOx"/>
+                            <constraint firstItem="Vdr-Tp-lt5" firstAttribute="leading" secondItem="gKt-v4-NU4" secondAttribute="trailing" constant="58" id="rq9-1M-Itv"/>
                             <constraint firstItem="5K9-uI-1LF" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="186" id="tKj-fv-UPH"/>
                         </constraints>
                     </view>
@@ -1063,15 +1070,15 @@
                                 </buttonCell>
                             </button>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4uu-SP-KKI">
-                                <rect key="frame" x="171" y="221" width="64" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="加密" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fZj-2q-v6a" id="fbd-CJ-25b">
+                                <rect key="frame" x="171" y="221" width="91" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="加密方式" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fZj-2q-v6a" id="fbd-CJ-25b">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="ttV-cp-W1z">
                                         <items>
-                                            <menuItem title="加密" state="on" id="fZj-2q-v6a"/>
-                                            <menuItem title="协议" id="eKm-OB-5Jz"/>
-                                            <menuItem title="混淆" id="R8q-aj-yme"/>
+                                            <menuItem title="加密方式" state="on" id="fZj-2q-v6a"/>
+                                            <menuItem title="协议列表" id="eKm-OB-5Jz"/>
+                                            <menuItem title="混淆方式" id="R8q-aj-yme"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -1195,7 +1202,7 @@
                                     <constraint firstAttribute="height" constant="135" id="Amm-qd-pfd"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="IyV-Bo-UZK">
-                                    <rect key="frame" x="1" y="118" width="165" height="16"/>
+                                    <rect key="frame" x="1" y="118" width="325" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="jrr-b7-rTN">
@@ -1236,6 +1243,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dropdownMenu" destination="4uu-SP-KKI" id="A68-1y-GsE"/>
+                        <outlet property="saveDefaultsCheckbox" destination="2hj-mF-9eh" id="04R-RH-cI6"/>
                         <outlet property="tableView" destination="ut2-1I-axD" id="Wre-HK-reM"/>
                     </connections>
                 </viewController>
@@ -1246,9 +1255,9 @@
         <!--Add ItemVC-->
         <scene sceneID="uzR-Bl-obC">
             <objects>
-                <viewController id="1uF-Ce-Zvq" customClass="AddItemVC" customModule="SSR_Link_Generator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="1uF-Ce-Zvq" customClass="AddItemVC" customModule="SSR_Link_Generator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="dV3-NR-xmM">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="308" height="150"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kYW-av-jds">
@@ -1268,20 +1277,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tup-B9-73A">
-                                <rect key="frame" x="219" y="13" width="67" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="添加" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TjA-lg-OL8">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="addString:" target="1uF-Ce-Zvq" id="YEZ-Zg-QCq"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XGH-aS-P3p">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGH-aS-P3p">
                                 <rect key="frame" x="14" y="13" width="67" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="放弃" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UN7-df-OPD">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -1299,23 +1296,40 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jUA-Jq-jyZ">
-                                <rect key="frame" x="158" y="113" width="84" height="17"/>
+                                <rect key="frame" x="166" y="113" width="84" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="菜单的选项：" id="uoJ-8Y-l1b">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tup-B9-73A">
+                                <rect key="frame" x="227" y="13" width="67" height="32"/>
+                                <buttonCell key="cell" type="push" title="添加" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TjA-lg-OL8">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="addString:" target="1uF-Ce-Zvq" id="YEZ-Zg-QCq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="jUA-Jq-jyZ" firstAttribute="leading" secondItem="MfA-VM-6cP" secondAttribute="trailing" id="AYD-a4-oiD"/>
+                            <constraint firstAttribute="bottom" secondItem="XGH-aS-P3p" secondAttribute="bottom" constant="20" id="5kg-ut-bPW"/>
+                            <constraint firstAttribute="trailing" secondItem="tup-B9-73A" secondAttribute="trailing" constant="20" id="678-Kq-gtd"/>
+                            <constraint firstItem="jUA-Jq-jyZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MfA-VM-6cP" secondAttribute="trailing" constant="8" symbolic="YES" id="AYD-a4-oiD"/>
                             <constraint firstItem="kYW-av-jds" firstAttribute="top" secondItem="dV3-NR-xmM" secondAttribute="top" constant="20" id="Aqb-bJ-Psl"/>
+                            <constraint firstAttribute="trailing" secondItem="jUA-Jq-jyZ" secondAttribute="trailing" constant="60" id="DlG-Qi-2WH"/>
                             <constraint firstItem="kYW-av-jds" firstAttribute="leading" secondItem="dV3-NR-xmM" secondAttribute="leading" constant="20" id="FKy-IT-PAX"/>
                             <constraint firstItem="MfA-VM-6cP" firstAttribute="leading" secondItem="kYW-av-jds" secondAttribute="trailing" id="LcG-Jz-5Or"/>
                             <constraint firstItem="MfA-VM-6cP" firstAttribute="centerY" secondItem="kYW-av-jds" secondAttribute="centerY" id="TIv-gN-Hd9"/>
                             <constraint firstItem="MfA-VM-6cP" firstAttribute="height" secondItem="kYW-av-jds" secondAttribute="height" id="Xne-ZK-cpA"/>
+                            <constraint firstItem="tup-B9-73A" firstAttribute="leading" relation="lessThanOrEqual" secondItem="dV3-NR-xmM" secondAttribute="leading" constant="233" id="Y0v-12-caM"/>
+                            <constraint firstAttribute="bottom" secondItem="tup-B9-73A" secondAttribute="bottom" constant="20" id="lgu-T2-pwF"/>
                             <constraint firstItem="jUA-Jq-jyZ" firstAttribute="centerY" secondItem="MfA-VM-6cP" secondAttribute="centerY" id="pJq-WN-S1x"/>
+                            <constraint firstItem="XGH-aS-P3p" firstAttribute="leading" secondItem="dV3-NR-xmM" secondAttribute="leading" constant="20" id="rk2-Vz-Aya"/>
                             <constraint firstItem="jUA-Jq-jyZ" firstAttribute="height" secondItem="MfA-VM-6cP" secondAttribute="height" id="us7-Ja-dd7"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="XGH-aS-P3p" secondAttribute="trailing" constant="233" id="yGW-fS-AIh"/>
                         </constraints>
                     </view>
                     <connections>
