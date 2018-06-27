@@ -52,6 +52,9 @@ class ViewController: NSViewController {
     generateLink()
   }
   
+  @IBAction func settingsMenuClicked(_ sender: Any) {
+    performSegue(withIdentifier: "settings", sender: sender)
+  }
   
   @IBOutlet weak var generateLinkButton: NSButton!
   @IBOutlet weak var startPort: NSTextField!
