@@ -13,6 +13,8 @@ class ViewController: NSViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    passwords.placeholderAttributedString = NSAttributedString(string: passPlaceHolder, attributes: attrs)
+    resultText.placeholderAttributedString = NSAttributedString(string: resultPlaceHolder, attributes: attrs)
     populateMenus()
     
     /*
@@ -66,10 +68,21 @@ class ViewController: NSViewController {
   @IBOutlet weak var protocolOptions: NSPopUpButton!
   @IBOutlet weak var protocolParameter: NSTextField!
   @IBOutlet weak var group: NSTextField!
-  @IBOutlet var passwords: NSTextView!
-  @IBOutlet var resultText: NSTextView!
+  @IBOutlet var passwords: PlaceholderTextView!
+  @IBOutlet var resultText: PlaceholderTextView!
   
   let defaults = UserDefaults.standard
+  let attrs = [NSAttributedString.Key.font: NSFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: NSColor.gray]
+  let passPlaceHolder = "输入密码" + "\r" + "每行一个" + "\r" + "可直接复制粘贴"
+  let resultPlaceHolder = """
+        点击生成后会按照所选设置\r
+        快速批量生成与密码数量相等的账号链接\r
+        每行一个，可直接粘贴回excel等文档\r
+        \r
+        只要求服务器中端口连号\r
+        \r
+        例如初始端口设置10000，密码栏导入10行，则生成从10000到10010的账号链接
+        """
   
   // Encode string using base64 method
   func encodeString(_ string: String) -> String {

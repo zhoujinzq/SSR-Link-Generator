@@ -45,3 +45,6 @@ func getTableArrayFromDefaults(tableLabel: String) -> [String] {
   return tableToShow
 }
 
+class PlaceholderTextView: NSTextView {
+  @objc var placeholderAttributedString: NSAttributedString?
+}
