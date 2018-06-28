@@ -74,13 +74,18 @@ class ViewController: NSViewController {
   // Encode string using base64 method
   func encodeString(_ string: String) -> String {
     
+    /*
+     Swift 4.2 might have changed how closures work, if change below implementations to:
+     1. create the string as a variable and keep modify its value until it's as what we want
+     2. return that variable
+		 Then it's gonna act weird when called in async closures, so, bunch of constants are used here.
+ 		*/
     let stringData = string.data(using: String.Encoding.ascii)
     let encodedString = stringData!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+    let replaceEqual = encodedString.replacingOccurrences(of: "=", with: "")
+    let replaceSlash = replaceEqual.replacingOccurrences(of: "/", with: "_")
+    return replaceSlash
     
-    // To meet ssr link requirment, "=" marks are removed, and "/" marks are repalced with "_"
-    var trimmedString = encodedString.replacingOccurrences(of: "=", with: "")
-    trimmedString = encodedString.replacingOccurrences(of: "/", with: "_")
-    return trimmedString
   }
   
   // Split passwords string into separate items, one per line
@@ -90,20 +95,20 @@ class ViewController: NSViewController {
     
     if passwords.contains("\r\n") {
       
-      for item in passwords.split(separator: "\r\n") {
-        passwordsArray.append(String(describing: item))
+      passwords.split(separator: "\r\n").forEach {
+        passwordsArray.append(String($0))
       }
       
     } else if passwords.contains("\r") {
       
-      for item in passwords.split(separator: "\r") {
-        passwordsArray.append(String(describing: item))
+      passwords.split(separator: "\r").forEach {
+        passwordsArray.append(String($0))
       }
       
     } else if passwords.contains("\n") {
       
-      for item in passwords.split(separator: "\n") {
-        passwordsArray.append(String(describing: item))
+      passwords.split(separator: "\n").forEach {
+        passwordsArray.append(String($0))
       }
       
     } else {
@@ -131,6 +136,7 @@ class ViewController: NSViewController {
       return
     }
     
+    // In order to use multi-thread, we have to get out UI element's values first
     let serverIPString = serverIP.stringValue
     let passwordsString = passwords.string
     let selectedProtocol = protocolOptions.titleOfSelectedItem!
@@ -142,9 +148,8 @@ class ViewController: NSViewController {
     let groupString = group.stringValue
     
     // Doing the actual work
-    
-    
     DispatchQueue.global().async {
+      
       let passwordsArray = self.splitPasswords(passwordsString)
       
       var secondPart = selectedProtocol + ":"
@@ -178,7 +183,7 @@ class ViewController: NSViewController {
       for (index, value) in passwordsArray.enumerated() {
         
         let string = serverIPString + ":" + String(startPort + index) + ":" + secondPart + self.encodeString(value) + thirdPart
-        let trimmedString = self.encodeString(string).replacingOccurrences(of: "/", with: "_")
+        let trimmedString = self.encodeString(string)
         
         finalString.append("ssr://")
         finalString.append(trimmedString)
@@ -191,6 +196,7 @@ class ViewController: NSViewController {
         
       }
     }
+    
   }
 }
 

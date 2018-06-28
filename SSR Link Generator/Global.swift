@@ -44,3 +44,4 @@ func getTableArrayFromDefaults(tableLabel: String) -> [String] {
   }
   return tableToShow
 }
+
