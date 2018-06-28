@@ -88,30 +88,27 @@ class ViewController: NSViewController {
     
     var passwordsArray = [String]()
     
-    // Line breaks in excel are \r\n, other text editors may vary
     if passwords.contains("\r\n") {
       
-      passwords.split(separator: "\r\n").forEach {
-        passwordsArray.append(String($0))
+      for item in passwords.split(separator: "\r\n") {
+        passwordsArray.append(String(describing: item))
       }
       
     } else if passwords.contains("\r") {
       
-      passwords.split(separator: "\r").forEach {
-        passwordsArray.append(String($0))
+      for item in passwords.split(separator: "\r") {
+        passwordsArray.append(String(describing: item))
       }
       
     } else if passwords.contains("\n") {
       
-      passwords.split(separator: "\n").forEach {
-        passwordsArray.append(String($0))
+      for item in passwords.split(separator: "\n") {
+        passwordsArray.append(String(describing: item))
       }
       
-      // If passwords field only contains one line
     } else {
       passwordsArray.append(passwords)
     }
-    
     return passwordsArray
   }
   
@@ -124,7 +121,7 @@ class ViewController: NSViewController {
       return
     }
     
-    guard let startPort = Int(startPort.stringValue) else {
+    guard let startPort = Int(self.startPort.stringValue) else {
       createAlert("初始端口请输入数字")
       return
     }
@@ -134,25 +131,25 @@ class ViewController: NSViewController {
       return
     }
     
-    // For dispatchQueue to work, get out values from UI elements
+    let serverIPString = serverIP.stringValue
     let passwordsString = passwords.string
-    let selectedProtocolOption = protocolOptions.titleOfSelectedItem
-    let selectedEncryption = encryptionMethods.titleOfSelectedItem
-    let selectedObfs = obfsOptions.titleOfSelectedItem
+    let selectedProtocol = protocolOptions.titleOfSelectedItem!
+    let selectedEncryption = encryptionMethods.titleOfSelectedItem!
+    let selectedObfs = obfsOptions.titleOfSelectedItem!
     let obfsString = obfsParameter.stringValue
     let protocolString = protocolParameter.stringValue
     let remarkString = serverName.stringValue
     let groupString = group.stringValue
-    let serverIPString = serverIP.stringValue
     
-    // Doing the actual work, some string values in ssr link are base 64 encoded two times.
-    DispatchQueue.global().async { [unowned self] in
-      
+    // Doing the actual work
+    
+    
+    DispatchQueue.global().async {
       let passwordsArray = self.splitPasswords(passwordsString)
       
-      var secondPart = (selectedProtocolOption)! + ":"
-      secondPart += (selectedEncryption)! + ":"
-      secondPart += (selectedObfs)! + ":"
+      var secondPart = selectedProtocol + ":"
+      secondPart += selectedEncryption + ":"
+      secondPart += selectedObfs + ":"
       
       
       var thirdPart = "/?obfsparam="
@@ -178,19 +175,20 @@ class ViewController: NSViewController {
       
       var finalString = ""
       
-      
-      for (index, password) in passwordsArray.enumerated() {
+      for (index, value) in passwordsArray.enumerated() {
         
-        let string = serverIPString + ":" + String(startPort + index) + ":" + secondPart + self.encodeString(password) + thirdPart
-        let trimmedString = self.encodeString(string)
+        let string = serverIPString + ":" + String(startPort + index) + ":" + secondPart + self.encodeString(value) + thirdPart
+        let trimmedString = self.encodeString(string).replacingOccurrences(of: "/", with: "_")
         
         finalString.append("ssr://")
         finalString.append(trimmedString)
         finalString.append("\r")
       }
       
+      
       DispatchQueue.main.async {
         self.resultText.string = finalString
+        
       }
     }
   }
