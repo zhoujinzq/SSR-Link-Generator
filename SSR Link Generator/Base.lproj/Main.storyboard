@@ -1206,7 +1206,6 @@ CA
                         <constraints>
                             <constraint firstItem="WYI-TM-Yuy" firstAttribute="leading" secondItem="CPI-Tg-tH4" secondAttribute="leading" id="18R-KS-rqq"/>
                             <constraint firstItem="oCw-ls-LN3" firstAttribute="leading" secondItem="WYI-TM-Yuy" secondAttribute="leading" id="3Di-te-unw"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4uu-SP-KKI" secondAttribute="trailing" constant="20" symbolic="YES" id="4rq-Rl-oL0"/>
                             <constraint firstAttribute="bottom" secondItem="qdD-TH-Yn7" secondAttribute="bottom" constant="20" id="5F1-bf-E3l"/>
                             <constraint firstItem="qdD-TH-Yn7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Jq-nq-ltZ" secondAttribute="leading" constant="20" symbolic="YES" id="6If-zj-RUM"/>
                             <constraint firstItem="f1k-Sp-frR" firstAttribute="leading" secondItem="r2F-0e-mGN" secondAttribute="trailing" constant="-1" id="7ye-6S-qIw"/>
@@ -1214,6 +1213,7 @@ CA
                             <constraint firstItem="3aH-Mt-6hu" firstAttribute="trailing" secondItem="oCw-ls-LN3" secondAttribute="trailing" id="AxI-ex-ba0"/>
                             <constraint firstAttribute="trailing" secondItem="qdD-TH-Yn7" secondAttribute="trailing" constant="20" id="E2l-rp-ikb"/>
                             <constraint firstItem="QrI-dV-8mT" firstAttribute="centerY" secondItem="CPI-Tg-tH4" secondAttribute="centerY" id="FeI-wN-oqe"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="4uu-SP-KKI" secondAttribute="trailing" constant="118" id="G9N-Kk-KoZ"/>
                             <constraint firstItem="CPI-Tg-tH4" firstAttribute="top" secondItem="5Jq-nq-ltZ" secondAttribute="top" constant="20" id="GUW-MX-6MG"/>
                             <constraint firstItem="QrI-dV-8mT" firstAttribute="leading" secondItem="CPI-Tg-tH4" secondAttribute="trailing" constant="7" id="Qjv-bW-EHJ"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kJx-97-Cds" secondAttribute="trailing" constant="20" symbolic="YES" id="RAj-l9-knU"/>

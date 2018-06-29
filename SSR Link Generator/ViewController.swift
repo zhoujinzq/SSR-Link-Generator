@@ -18,8 +18,8 @@ class ViewController: NSViewController {
     populateMenus()
     
     /*
-     This viewController is hard coded to load all 3 dropdown menus and other default values.
-     So it ignores loadTable() function's parameter(used as dropdown menus' datasource).
+     This viewController is hard coded to load all 3 dropdown menus and other textFields.
+     So it ignores loadTable() function's parameter(used as a single dropdown menu's datasource).
      To fulfill function's requirement, a random array of strings is used here.
      */
     if defaults.integer(forKey: "autoFillOnNextRun") == 1 {
@@ -125,8 +125,10 @@ class ViewController: NSViewController {
       }
       
     } else {
+      // If passwords field only have one line
       passwordsArray.append(passwords)
     }
+    
     return passwordsArray
   }
   
@@ -149,7 +151,7 @@ class ViewController: NSViewController {
       return
     }
     
-    // In order to use multi-thread, we have to get out UI element's values first
+    // Can't access UI elements in background thread, so we have to get out their values
     let serverIPString = serverIP.stringValue
     let passwordsString = passwords.string
     let selectedProtocol = protocolOptions.titleOfSelectedItem!
@@ -203,10 +205,8 @@ class ViewController: NSViewController {
         finalString.append("\r")
       }
       
-      
       DispatchQueue.main.async {
         self.resultText.string = finalString
-        
       }
     }
     
@@ -231,7 +231,7 @@ extension ViewController: ValueChanged {
     
   }
   
-  // Populate dropdown menu options from data model
+  // Populate dropdown menu options from userDefaults
   func populateMenus() {
     
     encryptionMethods.removeAllItems()
