@@ -50,7 +50,7 @@ class ViewController: NSViewController {
     
     // Clear result text first, so texts from last result won't get mixed with this one
     resultText.string = ""
-    
+    resultText.placeholderAttributedString = NSAttributedString(string: "")
     generateLink()
   }
   
@@ -73,15 +73,15 @@ class ViewController: NSViewController {
   
   let defaults = UserDefaults.standard
   let attrs = [NSAttributedString.Key.font: NSFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: NSColor.gray]
-  let passPlaceHolder = "输入密码" + "\r" + "每行一个" + "\r" + "可直接复制粘贴"
+  let passPlaceHolder = "Paste in passwords" + "\r" + "One per line"
   let resultPlaceHolder = """
-        点击生成后会按照所选设置\r
-        快速批量生成与密码数量相等的账号链接\r
-        每行一个，可直接粘贴回excel等文档\r
+        Click "Generate" button to generate ssr account links\r
+        Number of links depends on how many lines are presented in passwords field\r
+        You can copy and paste links back to excel or whatever text editor\r
+        They will be seperated to different lines/cells\r
         \r
-        只要求服务器中端口连号\r
-        \r
-        例如初始端口设置10000，密码栏导入10行，则生成从10000到10010的账号链接
+        For instance, put 10000 in start port, 10 passwords in passwords field\r
+        10 links will be shown in reslut field, start from port 10000 to port 10010
         """
   
   // Encode string using base64 method
@@ -91,8 +91,8 @@ class ViewController: NSViewController {
      Swift 4.2 might have changed how closures work, if change below implementations to:
      1. create the string as a variable and keep modify its value until it's as what we want
      2. return that variable
-		 Then it's gonna act weird when called in async closures, so, bunch of constants are used here.
- 		*/
+     Then it's gonna act weird when called in async closures, so, bunch of constants are used here.
+     */
     let stringData = string.data(using: String.Encoding.ascii)
     let encodedString = stringData!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
     let replaceEqual = encodedString.replacingOccurrences(of: "=", with: "")
@@ -137,17 +137,17 @@ class ViewController: NSViewController {
     
     // Conditions check
     guard serverIP.stringValue != "" else {
-      createAlert("请输入服务器IP或域名")
+      createAlert("Please input server IP or domain name")
       return
     }
     
     guard let startPort = Int(self.startPort.stringValue) else {
-      createAlert("初始端口请输入数字")
+      createAlert("Set a number for start port")
       return
     }
     
     guard passwords.string != "" else {
-      createAlert("请输入密码，每行一个")
+      createAlert("Please paste in passwords")
       return
     }
     
@@ -206,6 +206,8 @@ class ViewController: NSViewController {
       }
       
       DispatchQueue.main.async {
+        self.resultText.placeholderAttributedString = NSAttributedString(string: "")
+        
         self.resultText.string = finalString
       }
     }
@@ -237,11 +239,20 @@ extension ViewController: ValueChanged {
     encryptionMethods.removeAllItems()
     obfsOptions.removeAllItems()
     protocolOptions.removeAllItems()
-    // If those keys in userDefaults returns nil (say it's the 1st time app launches, we set
-    // userDefaults in appDelegate, so this works anyway.
-    defaults.array(forKey: "加密方式")?.forEach { encryptionMethods.addItem(withTitle: $0 as! String) }
-    defaults.array(forKey: "混淆方式")?.forEach { obfsOptions.addItem(withTitle: $0 as! String) }
-    defaults.array(forKey: "协议列表")?.forEach { protocolOptions.addItem(withTitle: $0 as! String) }
+    // If those keys in userDefaults returns nil (say it's the 1st time app launches, we populate
+    // menus with arrays defined in appDelegate
+    if defaults.array(forKey: "Encryption Options") != nil {
+      defaults.array(forKey: "Encryption Options")?.forEach { encryptionMethods.addItem(withTitle: $0 as! String) }
+      defaults.array(forKey: "Obfs Options")?.forEach { obfsOptions.addItem(withTitle: $0 as! String) }
+      defaults.array(forKey: "Protocol Options")?.forEach { protocolOptions.addItem(withTitle: $0 as! String) }
+
+    } else {
+      
+      AppDelegate().encryptionMethods.forEach { encryptionMethods.addItem(withTitle: $0) }
+      AppDelegate().obfsOptions.forEach { obfsOptions.addItem(withTitle: $0) }
+      AppDelegate().protocolOptions.forEach { protocolOptions.addItem(withTitle: $0) }
+
+    }
   }
   
   override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -256,6 +267,7 @@ extension ViewController: ValueChanged {
       settingsVC.delegate = self
     }
   }
+  
 }
 
 

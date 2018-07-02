@@ -14,20 +14,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
     return true
   }
+  func applicationWillFinishLaunching(_ notification: Notification) {
+  }
   
-  func applicationDidFinishLaunching(_ aNotification: Notification) {
+  func applicationDidFinishLaunching(_ notification: Notification) {
     loadUserDefaults()
+
   }
   
   func loadUserDefaults() {
-    
+
     // If userDefaults for 2 keys are both empty, then it's the first time app launches,
     // we pour arrays into userDefaults so mainVC can always read dropdown menu items from there
-    if defaults.array(forKey: "混淆方式") == nil && defaults.array(forKey: "协议列表") == nil {
-      defaults.set(encryptionMethods, forKey: "加密方式")
-      defaults.set(protocolOptions, forKey: "协议列表")
-      defaults.set(obfsOptions, forKey: "混淆方式")
-      
+    if defaults.array(forKey: "Obfs Options") == nil && defaults.array(forKey: "Protocol Options") == nil {
+      defaults.set(encryptionMethods, forKey: "Encryption Options")
+      defaults.set(protocolOptions, forKey: "Protocol Options")
+      defaults.set(obfsOptions, forKey: "Obfs Options")
+
       // By default, save users menu selections and texts, and auto fill them on next run is turned on.
       defaults.set(1, forKey: "autoFillOnNextRun")
     }

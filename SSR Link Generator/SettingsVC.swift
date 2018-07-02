@@ -38,12 +38,12 @@ class SettingsVC: NSViewController {
     
     // Deletion of last item in a menu is not allowed
     guard tableView.numberOfRows > 1 else {
-      createAlert("无法删除\(tableLabel)中的最后一个选项")
+      createAlert("Unable to delete last item in \(tableLabel)")
       return
     }
     
     guard tableView.selectedRow != -1 else {
-      createAlert("请先选中要删除的值")
+      createAlert("Please select the value you want to delete")
       return
     }
     
@@ -84,7 +84,7 @@ class SettingsVC: NSViewController {
   
   var menusTable: MenusTable?
   var delegate: ValueChanged?
-  var tableLabel = "加密方式"
+  var tableLabel = "Encryption Options"
   let defaults = UserDefaults.standard
   
   // To track all modified but not saved dropdown menu items

@@ -34,12 +34,12 @@ func getTableArrayFromDefaults(tableLabel: String) -> [String] {
     let defaults = UserDefaults.standard
     
     switch tableLabel {
-    case "协议列表":
-      return defaults.array(forKey: "协议列表") as! [String]
-    case "混淆方式":
-      return defaults.array(forKey: "混淆方式") as! [String]
+    case "Protocol Options":
+      return defaults.array(forKey: "Protocol Options") as! [String]
+    case "Obfs Options":
+      return defaults.array(forKey: "Obfs Options") as! [String]
     default:
-      return defaults.array(forKey: "加密方式") as! [String]
+      return defaults.array(forKey: "Encryption Options") as! [String]
     }
   }
   return tableToShow
