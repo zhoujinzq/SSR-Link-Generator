@@ -206,9 +206,10 @@ class ViewController: NSViewController {
       }
       
       DispatchQueue.main.async {
-        self.resultText.placeholderAttributedString = NSAttributedString(string: "")
         
         self.resultText.string = finalString
+        
+        //          self.resultText.placeholderAttributedString = NSAttributedString(string: "")
       }
     }
     
@@ -245,13 +246,13 @@ extension ViewController: ValueChanged {
       defaults.array(forKey: "Encryption Options")?.forEach { encryptionMethods.addItem(withTitle: $0 as! String) }
       defaults.array(forKey: "Obfs Options")?.forEach { obfsOptions.addItem(withTitle: $0 as! String) }
       defaults.array(forKey: "Protocol Options")?.forEach { protocolOptions.addItem(withTitle: $0 as! String) }
-
+      
     } else {
       
       AppDelegate().encryptionMethods.forEach { encryptionMethods.addItem(withTitle: $0) }
       AppDelegate().obfsOptions.forEach { obfsOptions.addItem(withTitle: $0) }
       AppDelegate().protocolOptions.forEach { protocolOptions.addItem(withTitle: $0) }
-
+      
     }
   }
   

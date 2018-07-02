@@ -15,7 +15,7 @@ class AddItemVC: NSViewController {
     
     /*
      Make sure delegation works, otherwise bail. If nothing goes wrong here,
-     we can force unwrap all those optionals below.
+     we can safely force unwrap all those optionals below.
      */
     if let delegate = delegate {
       currentArray = delegate.getCurrentArray!()
@@ -23,7 +23,7 @@ class AddItemVC: NSViewController {
       dismiss(self)
     }
     
-    // Set currently working menu in arrayLabel
+    // Append name of the currently editing menu in UI element
     arrayLabel.stringValue += tableLabel! + ":"
   }
   
@@ -42,10 +42,11 @@ class AddItemVC: NSViewController {
       return
     }
     /*
-     Check if user is adding a value which might existed in other menus.
+     Check if user is adding a value which might existed in other menus, in case
+     they are making a mistake unintentionally and give them an alert.
      Since we have already checked the value with currentArray and bail if yes,
-     here we are sure the code below will only check it with other array So we
-     can skip the code to varify if we are checking with current or other arrays.
+     here we are sure the code below will only check it with other arrays, so we
+     can skip the code to find other 2 arrays rather than checking with all arrays.
      */
     let modifiedList = SettingsVC().modifiedList
     
@@ -57,13 +58,14 @@ class AddItemVC: NSViewController {
         alert.messageText = "\(stringToAdd) is already in \(key)，still add to \(tableLabel!)？"
         alert.addButton(withTitle: "Cancel")
         alert.addButton(withTitle: "Add")
-        alert.runModal()
+//        alert.beginSheetModal(for: self.view.window!, completionHandler: { [ unowned self ] button in
+          // If the value do exists in other array but the user still want to
+          // add it to 'currentArray', we give them that option.
+//          if button == NSApplication.ModalResponse.alertSecondButtonReturn {
+//            self.addItem(stringToAdd, to: self.currentArray)
+//          }
+//        })
         
-        // If the value do exists in other array but the user still want to
-        // add it to 'currentArray', we give them that option.
-        alert.buttons[1].action = #selector(addAnyway)
-        
-        return
       }
     }
     
@@ -92,19 +94,31 @@ class AddItemVC: NSViewController {
       alert.messageText = "\(stringToAdd) is already in \(containedInDefaults), still add to \(tableLabel!)？"
       alert.addButton(withTitle: "Cancel")
       alert.addButton(withTitle: "Add")
-      alert.runModal()
-      alert.buttons[1].action = #selector(addAnyway)
-//      dismiss(self)
-      return
+      
+      alert.beginSheetModal(for: self.view.window!, completionHandler: { [unowned self ] (button) in
+        if button == NSApplication.ModalResponse.alertSecondButtonReturn {
+          self.addItem(stringToAdd, to: self.currentArray)
+        }
+      })
     }
     
     // If we are still here, add the string into 'currentArray'
-    currentArray.append(stringToAdd)
+//    addItem(stringToAdd, to: currentArray)
+//        currentArray.append(stringToAdd)
+    //
+    //    // Update 'modifiedList' in settingsVC
+//        delegate?.addToTemporaryList!(key: tableLabel!, array: currentArray)
+//        delegate?.loadTable(tableToShow: currentArray)
+    //
+//        dismiss(self)
+  }
+  
+  func addItem(_ string: String, to array: [String]) {
     
-    // Update 'modifiedList' in settingsVC
-    delegate?.addToTemporaryList!(key: tableLabel!, array: currentArray)
-    delegate?.loadTable(tableToShow: currentArray)
-    
+    var newArray = array
+    newArray.append(string)
+    delegate?.addToTemporaryList!(key: tableLabel!, array: newArray)
+    delegate?.loadTable(tableToShow: newArray)
     dismiss(self)
   }
   
@@ -117,17 +131,4 @@ class AddItemVC: NSViewController {
   var delegate: ValueChanged?
   let defaults = UserDefaults.standard
   
-  @objc func addAnyway() {
-    
-    let stringToAdd = inputTextField.stringValue.lowercased()
-    currentArray.append(stringToAdd)
-    print(currentArray)
-    delegate?.addToTemporaryList!(key: tableLabel!, array: currentArray)
-    delegate?.loadTable(tableToShow: SettingsVC().modifiedList[tableLabel!]!)
-    print(currentArray)
-//    delegate.mo
-//    var newArray = array
-//    newArray.append(string)
-//    return newArray
-  }
 }
