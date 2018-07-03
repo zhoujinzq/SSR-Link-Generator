@@ -48,69 +48,59 @@ class AddItemVC: NSViewController {
      here we are sure the code below will only check it with other arrays, so we
      can skip the code to find other 2 arrays rather than checking with all arrays.
      */
+    if let arrayLabel = checkWithArrays(stringToAdd, with: currentArray) {
+      let alert = NSAlert()
+      alert.alertStyle = .critical
+      alert.messageText = "\(stringToAdd) is already in \(arrayLabel)，still add to \(tableLabel!)？"
+      alert.addButton(withTitle: "Cancel")
+      alert.addButton(withTitle: "Add")
+      // Set keyboard shortcut for Cancel button to be ESC, and enter for Add button
+      alert.buttons[0].keyEquivalent = "\u{1b}"
+      alert.buttons[1].keyEquivalent = "\r"
+      
+      alert.beginSheetModal(for: self.view.window!, completionHandler: { [ unowned self ] button in
+        // If the value do exists in other array but the user still want to
+        // add it to 'currentArray', we give them that option.
+        if button == NSApplication.ModalResponse.alertSecondButtonReturn {
+          self.addItem(stringToAdd, to: self.currentArray)
+        }
+      })
+    } else {
+      // If none of the above situation happens, we simply add the string into currentArray
+      addItem(stringToAdd, to: currentArray)
+    }
+    
+  }
+  
+  func checkWithArrays(_ stringToAdd: String, with array: [String]) -> String? {
+    
     let modifiedList = SettingsVC().modifiedList
     
     // Compare with 'modifiedList' first
     for (key, array) in modifiedList {
       if array.contains(stringToAdd) {
-        let alert = NSAlert()
-        alert.alertStyle = .critical
-        alert.messageText = "\(stringToAdd) is already in \(key)，still add to \(tableLabel!)？"
-        alert.addButton(withTitle: "Cancel")
-        alert.addButton(withTitle: "Add")
-//        alert.beginSheetModal(for: self.view.window!, completionHandler: { [ unowned self ] button in
-          // If the value do exists in other array but the user still want to
-          // add it to 'currentArray', we give them that option.
-//          if button == NSApplication.ModalResponse.alertSecondButtonReturn {
-//            self.addItem(stringToAdd, to: self.currentArray)
-//          }
-//        })
-        
+        return key
       }
     }
     
     // If user hasn't modified other menus, check value with userDefaults
-    var containedInDefaults = ""
     let protocols = defaults.array(forKey: "Protocol Options") as! [String]
     let encryptions = defaults.array(forKey: "Encryption Options") as! [String]
     let obfs = defaults.array(forKey: "Obfs Options") as! [String]
     
-    if protocols.contains(stringToAdd) && modifiedList["Protocol Options"] == nil {
-      containedInDefaults = "Obfs Options"
+    if protocols.contains(stringToAdd) {
+      return "Obfs Options"
     }
     
     if obfs.contains(stringToAdd) && modifiedList["Obfs Options"] == nil {
-      containedInDefaults = "Obfs Options"
+      return "Obfs Options"
     }
     
     if encryptions.contains(stringToAdd) && modifiedList["Encryption Options"] == nil {
-      containedInDefaults = "Encryption Options"
+      return "Encryption Options"
     }
     
-    if containedInDefaults != "" {
-      
-      let alert = NSAlert()
-      alert.alertStyle = .critical
-      alert.messageText = "\(stringToAdd) is already in \(containedInDefaults), still add to \(tableLabel!)？"
-      alert.addButton(withTitle: "Cancel")
-      alert.addButton(withTitle: "Add")
-      
-      alert.beginSheetModal(for: self.view.window!, completionHandler: { [unowned self ] (button) in
-        if button == NSApplication.ModalResponse.alertSecondButtonReturn {
-          self.addItem(stringToAdd, to: self.currentArray)
-        }
-      })
-    }
-    
-    // If we are still here, add the string into 'currentArray'
-//    addItem(stringToAdd, to: currentArray)
-//        currentArray.append(stringToAdd)
-    //
-    //    // Update 'modifiedList' in settingsVC
-//        delegate?.addToTemporaryList!(key: tableLabel!, array: currentArray)
-//        delegate?.loadTable(tableToShow: currentArray)
-    //
-//        dismiss(self)
+    return nil
   }
   
   func addItem(_ string: String, to array: [String]) {
@@ -124,7 +114,6 @@ class AddItemVC: NSViewController {
   
   @IBOutlet weak var arrayLabel: NSTextField!
   @IBOutlet weak var inputTextField: NSTextField!
-  //  @IBOutlet weak var arrayLabel: NSTextField!
   
   var tableLabel: String?
   var currentArray = [String]()

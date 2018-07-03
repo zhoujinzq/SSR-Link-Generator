@@ -41,10 +41,14 @@ func getTableArrayFromDefaults(tableLabel: String) -> [String] {
     default:
       return defaults.array(forKey: "Encryption Options") as! [String]
     }
+    
   }
+  
   return tableToShow
 }
 
 class PlaceholderTextView: NSTextView {
+  
   @objc var placeholderAttributedString: NSAttributedString?
+  
 }

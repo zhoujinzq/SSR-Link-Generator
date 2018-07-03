@@ -13,13 +13,13 @@ class ViewController: NSViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    populateMenus()
     passwords.placeholderAttributedString = NSAttributedString(string: passPlaceHolder, attributes: attrs)
     resultText.placeholderAttributedString = NSAttributedString(string: resultPlaceHolder, attributes: attrs)
-    populateMenus()
     
     /*
      This viewController is hard coded to load all 3 dropdown menus and other textFields.
-     So it ignores loadTable() function's parameter(used as a single dropdown menu's datasource).
+     So it ignores loadTable() function's parameter(used as a specific dropdown menu's datasource).
      To fulfill function's requirement, a random array of strings is used here.
      */
     if defaults.integer(forKey: "autoFillOnNextRun") == 1 {
@@ -91,7 +91,7 @@ class ViewController: NSViewController {
      Swift 4.2 might have changed how closures work, if change below implementations to:
      1. create the string as a variable and keep modify its value until it's as what we want
      2. return that variable
-     Then it's gonna act weird when called in async closures, so, bunch of constants are used here.
+     Then it's gonna act weirdly when called in async closures, so, bunch of constants are used here.
      */
     let stringData = string.data(using: String.Encoding.ascii)
     let encodedString = stringData!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
