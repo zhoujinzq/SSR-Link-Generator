@@ -29,6 +29,8 @@ func createAlert(_ message: String) {
 // Returns an array according to its label
 func getTableArrayFromDefaults(tableLabel: String) -> [String] {
   
+//  let dropdownMenu = NSPopUpButton()
+  
   var tableToShow: [String] {
     
     let defaults = UserDefaults.standard

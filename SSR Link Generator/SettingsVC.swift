@@ -12,7 +12,6 @@ class SettingsVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     saveDefaultsCheckbox.state = defaults.integer(forKey: "autoFillOnNextRun") == 0 ? .off : .on
     
     loadTable(tableToShow: getTableArrayFromDefaults(tableLabel: tableLabel))
