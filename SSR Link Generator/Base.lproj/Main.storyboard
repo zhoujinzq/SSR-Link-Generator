@@ -16,25 +16,25 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="SSR Link Generator" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="关于 SSR Link Generator" id="5kV-Vb-QxS">
+                                        <menuItem title="About SSR Link Generator" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="选项设置…" keyEquivalent="," id="BOF-NM-1cW">
+                                        <menuItem title="Settings…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
                                                 <action selector="settingsMenuClicked:" target="Ady-hI-5gd" id="FxE-Wf-5gL"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
-                                        <menuItem title="服务" id="NMo-om-nkz">
+                                        <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="服务" systemMenu="services" id="hz9-B4-Xy5"/>
+                                            <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="退出 SSR Link Generator" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit SSR Link Generator" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>

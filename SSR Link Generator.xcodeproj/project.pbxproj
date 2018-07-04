@@ -19,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		B41C9E1520CD77B500158848 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		B44E52B120EBA35B00EE75ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		B47DFF2B20D4E9260037CE80 /* MenusTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenusTable.swift; sourceTree = "<group>"; };
 		B47E6C2E1FFA82D9001CFCF0 /* SSR Link Generator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SSR Link Generator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47E6C311FFA82D9001CFCF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +164,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B47E6C381FFA82D9001CFCF0 /* Base */,
+				B44E52B120EBA35B00EE75ED /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
