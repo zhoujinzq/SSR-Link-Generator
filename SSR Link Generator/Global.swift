@@ -27,18 +27,16 @@ func createAlert(_ message: String) {
 }
 
 // Returns an array according to its label
-func getTableArrayFromDefaults(tableLabel: String) -> [String] {
-  
-//  let dropdownMenu = NSPopUpButton()
+func getTableArrayFromDefaults(menu: NSPopUpButton) -> [String] {
   
   var tableToShow: [String] {
     
     let defaults = UserDefaults.standard
     
-    switch tableLabel {
-    case "Protocol Options":
+    switch menu.indexOfSelectedItem {
+    case 1:
       return defaults.array(forKey: "Protocol Options") as! [String]
-    case "Obfs Options":
+    case 2:
       return defaults.array(forKey: "Obfs Options") as! [String]
     default:
       return defaults.array(forKey: "Encryption Options") as! [String]

@@ -74,15 +74,14 @@ class ViewController: NSViewController {
   let defaults = UserDefaults.standard
   let attrs = [NSAttributedString.Key.font: NSFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: NSColor.gray]
   let passPlaceHolder = NSLocalizedString("Paste in passwords" + "\r" + "One per line", comment: "passwords place holder")
-  let resultPlaceHolder = NSLocalizedString("""
-        Click "Generate" button to generate ssr account links\r
-        Number of links depends on how many lines are presented in passwords field\r
-        You can copy and paste links back to excel or whatever text editor\r
-        They will be seperated to different lines/cells\r
-        \r
-        For instance, put 10000 in start port, 10 passwords in passwords field\r
-        10 links will be shown in reslut field, start from port 10000 to port 10010
-        """, comment: "result place holder")
+  let resultPlaceHolder = NSLocalizedString("Click Generate button to generate ssr account links\r" +
+    "Number of links depends on how many lines are presented in passwords field\r" +
+    "You can copy and paste links back to excel or whatever text editor\r" +
+    "They will be seperated to different lines/cells\r" +
+    "\r" +
+    "For instance, put 10000 in start port, 10 passwords in passwords field\r" +
+    "10 links will be shown in reslut field, start from port 10000 to port 10010"
+    , comment: "result place holder")
   
   // Encode string using base64 method
   func encodeString(_ string: String) -> String {

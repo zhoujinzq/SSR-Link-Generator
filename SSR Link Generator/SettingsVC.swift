@@ -14,7 +14,7 @@ class SettingsVC: NSViewController {
     super.viewDidLoad()
     saveDefaultsCheckbox.state = defaults.integer(forKey: "autoFillOnNextRun") == 0 ? .off : .on
     
-    loadTable(tableToShow: getTableArrayFromDefaults(tableLabel: tableLabel))
+    loadTable(tableToShow: getTableArrayFromDefaults(menu: dropdownMenu))
   }
   
   // Change table contents base on user selection
@@ -117,6 +117,6 @@ extension SettingsVC: ValueChanged {
   
   // Wrapped in a function so this can be called in AddItemVC as delegate method
   func getCurrentArray() -> [String] {
-    return (modifiedList[tableLabel] != nil) ? modifiedList[tableLabel]! : getTableArrayFromDefaults(tableLabel: tableLabel)
+    return (modifiedList[tableLabel] != nil) ? modifiedList[tableLabel]! : getTableArrayFromDefaults(menu: dropdownMenu)
   }
 }
