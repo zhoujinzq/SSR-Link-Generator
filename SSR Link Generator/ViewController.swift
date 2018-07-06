@@ -136,17 +136,17 @@ class ViewController: NSViewController {
     
     // Conditions check
     guard serverIP.stringValue != "" else {
-      createAlert("Please input server IP or domain name")
+      createAlert(NSLocalizedString("Please input server IP or domain name", comment: "Please input server IP or domain name"))
       return
     }
     
     guard let startPort = Int(self.startPort.stringValue) else {
-      createAlert("Set a number for start port")
+      createAlert(NSLocalizedString("Set a number for start port", comment: "Set a number for start port"))
       return
     }
     
     guard passwords.string != "" else {
-      createAlert("Please paste in passwords")
+      createAlert(NSLocalizedString("Please paste in passwords", comment: "Please paste in passwords"))
       return
     }
     

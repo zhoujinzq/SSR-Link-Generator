@@ -32,13 +32,13 @@ class AddItemVC: NSViewController {
     let stringToAdd = inputTextField.stringValue.lowercased()
     
     guard stringToAdd != "" else {
-      createAlert("Please type in the value you want to add")
+      createAlert(NSLocalizedString("Please type in the value you want to add", comment: "Please type in the value you want to add"))
       return
     }
     
     // Check if value is existed in current array
     if currentArray.contains(stringToAdd) {
-      createAlert("\(stringToAdd) is already in \(tableLabel!)")
+      createAlert(NSLocalizedString("\(stringToAdd) is already in \(tableName!)", comment: "\(stringToAdd) is already in \(tableName!)"))
       return
     }
     /*
@@ -51,7 +51,7 @@ class AddItemVC: NSViewController {
     if let arrayLabel = checkWithArrays(stringToAdd, with: currentArray) {
       let alert = NSAlert()
       alert.alertStyle = .critical
-      alert.messageText = "\(stringToAdd) is already in \(arrayLabel)，still add to \(tableLabel!)？"
+      alert.messageText = NSLocalizedString("\(stringToAdd) is already in \(arrayLabel)，still add to \(tableName!)？", comment: "\(stringToAdd) is already in \(arrayLabel)，still add to \(tableName!)？")
       alert.addButton(withTitle: "Cancel")
       alert.addButton(withTitle: "Add")
       // Set keyboard shortcut for Cancel button to be ESC, and enter for Add button
@@ -116,6 +116,7 @@ class AddItemVC: NSViewController {
   @IBOutlet weak var inputTextField: NSTextField!
   
   var tableLabel: String?
+  var tableName: String?
   var currentArray = [String]()
   var delegate: ValueChanged?
   let defaults = UserDefaults.standard

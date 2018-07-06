@@ -12,9 +12,12 @@ class SettingsVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    saveDefaultsCheckbox.state = defaults.integer(forKey: "autoFillOnNextRun") == 0 ? .off : .on
     
+    saveDefaultsCheckbox.state = defaults.integer(forKey: "autoFillOnNextRun") == 0 ? .off : .on
     loadTable(tableToShow: getTableArrayFromDefaults(menu: dropdownMenu))
+
+    // Get table name, used to be displayed in some UI parts, this could be different from tableLabel due to multi language
+    tableName = dropdownMenu.titleOfSelectedItem!
   }
   
   // Change table contents base on user selection
@@ -37,12 +40,12 @@ class SettingsVC: NSViewController {
     
     // Deletion of last item in a menu is not allowed
     guard tableView.numberOfRows > 1 else {
-      createAlert("Unable to delete last item in \(tableLabel)")
+      createAlert(NSLocalizedString("Unable to delete last item in \(tableName)", comment: "Unable to delete last item in \(tableName)"))
       return
     }
     
     guard tableView.selectedRow != -1 else {
-      createAlert("Please select the value you want to delete")
+      createAlert(NSLocalizedString("Please select the value you want to delete", comment: "Please select the value you want to delete"))
       return
     }
     
@@ -84,6 +87,7 @@ class SettingsVC: NSViewController {
   var menusTable: MenusTable?
   var delegate: ValueChanged?
   var tableLabel = "Encryption Options"
+  var tableName = ""
   let defaults = UserDefaults.standard
   
   // To track all modified but not saved dropdown menu items
@@ -94,6 +98,7 @@ class SettingsVC: NSViewController {
     if segue.identifier == "addItem" {
       let addItemVC = segue.destinationController as! AddItemVC
       addItemVC.tableLabel = tableLabel
+      addItemVC.tableName = tableName
       addItemVC.delegate = self
     }
     
