@@ -1,0 +1,111 @@
+
+/* Class = "NSMenuItem"; title = "SSR Link Generator"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "SSR Link Generator";
+
+/* Class = "NSTextFieldCell"; title = "Group:"; ObjectID = "2U2-S3-psm"; */
+"2U2-S3-psm.title" = "分组：";
+
+/* Class = "NSButtonCell"; title = "Save values & auto fill on next app launch"; ObjectID = "2hj-mF-9eh"; */
+"2hj-mF-9eh.title" = "App启动时自动填写上一次使用的值";
+
+/* Class = "NSTextFieldCell"; title = "Encryption:"; ObjectID = "4IM-UU-Oqk"; */
+"4IM-UU-Oqk.title" = "加密方式：";
+
+/* Class = "NSMenuItem"; title = "Quit SSR Link Generator"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "退出 SSR Link Generator";
+
+/* Class = "NSMenuItem"; title = "About SSR Link Generator"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "关于 SSR Link Generator";
+
+/* Class = "NSTextFieldCell"; title = "Protocol Parameter:"; ObjectID = "9rd-Ud-W6B"; */
+"9rd-Ud-W6B.title" = "协议参数：";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "主菜单";
+
+/* Class = "NSMenuItem"; title = "Settings…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "选项设置…";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
+"F2S-fz-NVQ.title" = "帮助";
+
+/* Class = "NSMenuItem"; title = "SSR Link Generator Help"; ObjectID = "FKE-Sm-Kum"; */
+"FKE-Sm-Kum.title" = "SSR Link Generator 帮助";
+
+/* Class = "NSTextFieldCell"; title = "Protocol:"; ObjectID = "HeK-JP-ivb"; */
+"HeK-JP-ivb.title" = "协议：";
+
+/* Class = "NSTextFieldCell"; title = "obfuscation:"; ObjectID = "I9a-Nc-3cK"; */
+"I9a-Nc-3cK.title" = "混淆方式：";
+
+/* Class = "NSWindow"; title = "SSR Link Generator"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "SSR Link Generator";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "LcS-5z-0hh"; */
+"LcS-5z-0hh.title" = "Table View Cell";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
+"NMo-om-nkz.title" = "服务";
+
+/* Class = "NSButtonCell"; title = "Settings"; ObjectID = "NU3-bQ-Kr8"; */
+"NU3-bQ-Kr8.title" = "选项设置";
+
+/* Class = "NSTextFieldCell"; title = "Remark:"; ObjectID = "QuO-hi-3dS"; */
+"QuO-hi-3dS.title" = "备注：";
+
+/* Class = "NSMenuItem"; title = "Obfs Options"; ObjectID = "R8q-aj-yme"; */
+"R8q-aj-yme.title" = "混淆方式";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "TjA-lg-OL8"; */
+"TjA-lg-OL8.title" = "添加";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "U3T-7d-H6q"; */
+"U3T-7d-H6q.title" = "保存";
+
+/* Class = "NSButtonCell"; title = "Cancle"; ObjectID = "UN7-df-OPD"; */
+"UN7-df-OPD.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Please enter a value for new item in "; ObjectID = "VBR-yQ-GE5"; */
+"VBR-yQ-GE5.title" = "请输入选项名称以加入到 ";
+
+/* Class = "NSWindow"; title = "Settings"; ObjectID = "ZPA-TW-KG5"; */
+"ZPA-TW-KG5.title" = "选项设置";
+
+/* Class = "NSTextFieldCell"; title = "Auto Fill:"; ObjectID = "bRN-ER-53q"; */
+"bRN-ER-53q.title" = "自动填写：";
+
+/* Class = "NSTextFieldCell"; title = "Server IP / Domain:"; ObjectID = "bdO-Aj-N1c"; */
+"bdO-Aj-N1c.title" = "服务器IP或域名：";
+
+/* Class = "NSMenuItem"; title = "Protocol Options"; ObjectID = "eKm-OB-5Jz"; */
+"eKm-OB-5Jz.title" = "协议列表";
+
+/* Class = "NSViewController"; title = "Settings"; ObjectID = "eXA-EG-9W1"; */
+"eXA-EG-9W1.title" = "选项设置";
+
+/* Class = "NSMenuItem"; title = "Encryption Options"; ObjectID = "fZj-2q-v6a"; */
+"fZj-2q-v6a.title" = "加密方式";
+
+/* Class = "NSButtonCell"; title = "Generate"; ObjectID = "hZG-qB-BCq"; */
+"hZG-qB-BCq.title" = "生成链接";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "hz9-B4-Xy5"; */
+"hz9-B4-Xy5.title" = "服务";
+
+/* Class = "NSTextFieldCell"; title = "Obfs Parameter:"; ObjectID = "jsO-IR-Q5n"; */
+"jsO-IR-Q5n.title" = "混淆参数：";
+
+/* Class = "NSTextFieldCell"; title = "Start Port:"; ObjectID = "lXL-0o-VaC"; */
+"lXL-0o-VaC.title" = "起始端口";
+
+/* Class = "NSTextFieldCell"; title = "Select a menu to edit:"; ObjectID = "mE3-Gb-OJ3"; */
+"mE3-Gb-OJ3.title" = "选则要修改的菜单：";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "mhu-v1-Fq6"; */
+"mhu-v1-Fq6.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "SSR Link Generator"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "SSR Link Generator";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "帮助";
