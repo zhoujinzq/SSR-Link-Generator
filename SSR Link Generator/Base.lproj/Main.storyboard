@@ -600,7 +600,7 @@
                         <constraints>
                             <constraint firstItem="XzX-BR-EMf" firstAttribute="centerY" secondItem="b8r-VG-32k" secondAttribute="centerY" id="02A-jS-2hT"/>
                             <constraint firstItem="Vdr-Tp-lt5" firstAttribute="leading" secondItem="3wC-24-bDk" secondAttribute="leading" id="1tq-Vn-HVd"/>
-                            <constraint firstAttribute="trailing" secondItem="3wC-24-bDk" secondAttribute="trailing" constant="20" id="24m-j5-Ovu"/>
+                            <constraint firstAttribute="trailing" secondItem="3wC-24-bDk" secondAttribute="trailing" priority="750" constant="20" id="24m-j5-Ovu"/>
                             <constraint firstItem="gKt-v4-NU4" firstAttribute="leading" secondItem="hzz-6r-bFo" secondAttribute="trailing" constant="10" id="2er-Os-pXp"/>
                             <constraint firstItem="Vr0-bA-qZo" firstAttribute="centerY" secondItem="Duu-Uf-gs8" secondAttribute="centerY" id="2rH-XG-n6b"/>
                             <constraint firstItem="5K9-uI-1LF" firstAttribute="leading" secondItem="Ejx-Gu-JEE" secondAttribute="trailing" constant="20" id="3EE-0S-Gk1"/>
@@ -636,7 +636,6 @@
                             <constraint firstItem="12O-FD-Uiv" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="h7e-q1-Bdm"/>
                             <constraint firstItem="uLu-Nh-q5A" firstAttribute="centerY" secondItem="1tu-W8-Suv" secondAttribute="centerY" id="jQZ-As-r5J"/>
                             <constraint firstItem="Tu4-jF-6RL" firstAttribute="width" secondItem="jcE-5J-pah" secondAttribute="width" id="le1-AA-ouf"/>
-                            <constraint firstItem="5K9-uI-1LF" firstAttribute="trailing" secondItem="Vdr-Tp-lt5" secondAttribute="trailing" id="oJC-wk-rBV"/>
                             <constraint firstItem="5K9-uI-1LF" firstAttribute="trailing" secondItem="Vdr-Tp-lt5" secondAttribute="trailing" id="qSN-4I-SCy"/>
                             <constraint firstItem="Ire-i1-ZpI" firstAttribute="height" secondItem="tUM-xt-BZz" secondAttribute="height" id="qnY-Hw-6Ra"/>
                             <constraint firstItem="uLu-Nh-q5A" firstAttribute="leading" secondItem="1tu-W8-Suv" secondAttribute="trailing" constant="10" id="sIe-hZ-PNw"/>
@@ -666,7 +665,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="28" y="1111"/>
+            <point key="canvasLocation" x="27.5" y="1111"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Nv8-Ym-hYr">

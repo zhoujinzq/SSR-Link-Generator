@@ -12,7 +12,7 @@ import Cocoa
 @objc protocol ValueChanged {
   
   func loadTable(tableToShow: [String])
-  @objc optional func addToTemporaryList(key: String, array: [String])
+  @objc optional func addToTemporaryList(number: Int, array: [String])
   @objc optional func getCurrentArray() -> [String]
   @objc optional func populateMenus()
   
@@ -35,11 +35,11 @@ func getTableArrayFromDefaults(menu: NSPopUpButton) -> [String] {
     
     switch menu.indexOfSelectedItem {
     case 1:
-      return defaults.array(forKey: "Protocol Options") as! [String]
+      return defaults.array(forKey: "1") as! [String]
     case 2:
-      return defaults.array(forKey: "Obfs Options") as! [String]
+      return defaults.array(forKey: "2") as! [String]
     default:
-      return defaults.array(forKey: "Encryption Options") as! [String]
+      return defaults.array(forKey: "0") as! [String]
     }
     
   }

@@ -12,7 +12,7 @@ class AddItemVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     /*
      Make sure delegation works, otherwise bail. If nothing goes wrong here,
      we can safely force unwrap all those optionals below.
@@ -24,7 +24,7 @@ class AddItemVC: NSViewController {
     }
     
     // Append name of the currently editing menu in UI element
-    arrayLabel.stringValue += tableLabel! + ":"
+    arrayLabel.stringValue += tableName! + ":"
   }
   
   @IBAction func addString(_ sender: Any) {
@@ -84,12 +84,13 @@ class AddItemVC: NSViewController {
     }
     
     // If user hasn't modified other menus, check value with userDefaults
-    let protocols = defaults.array(forKey: "Protocol Options") as! [String]
-    let encryptions = defaults.array(forKey: "Encryption Options") as! [String]
-    let obfs = defaults.array(forKey: "Obfs Options") as! [String]
+    let encryptions = defaults.array(forKey: "0") as! [String]
+
+    let protocols = defaults.array(forKey: "1") as! [String]
+    let obfs = defaults.array(forKey: "2") as! [String]
     
     if protocols.contains(stringToAdd) {
-      return "Obfs Options"
+      return "Protocol Options"
     }
     
     if obfs.contains(stringToAdd) && modifiedList["Obfs Options"] == nil {
@@ -107,7 +108,7 @@ class AddItemVC: NSViewController {
     
     var newArray = array
     newArray.append(string)
-    delegate?.addToTemporaryList!(key: tableLabel!, array: newArray)
+    delegate?.addToTemporaryList!(number: tableNumber!, array: newArray)
     delegate?.loadTable(tableToShow: newArray)
     dismiss(self)
   }
@@ -115,7 +116,7 @@ class AddItemVC: NSViewController {
   @IBOutlet weak var arrayLabel: NSTextField!
   @IBOutlet weak var inputTextField: NSTextField!
   
-  var tableLabel: String?
+  var tableNumber: Int?
   var tableName: String?
   var currentArray = [String]()
   var delegate: ValueChanged?

@@ -15,17 +15,20 @@ class SettingsVC: NSViewController {
     
     saveDefaultsCheckbox.state = defaults.integer(forKey: "autoFillOnNextRun") == 0 ? .off : .on
     loadTable(tableToShow: getTableArrayFromDefaults(menu: dropdownMenu))
-
+    
     // Get table name, used to be displayed in some UI parts, this could be different from tableLabel due to multi language
     tableName = dropdownMenu.titleOfSelectedItem!
+    
+    tableNumber = dropdownMenu.indexOfSelectedItem
   }
   
   // Change table contents base on user selection
   @IBAction func dropdownClicked(_ sender: NSPopUpButton) {
     
-    // 'tableLabel' is used elsewhere in this vc, so its value must reflect
+    // 'tableNumber' is used elsewhere in this vc, so its value must reflect
     // which array is been selected and modifiedat accordingly at any moment
-    tableLabel = sender.selectedItem!.title
+    tableNumber = sender.indexOfSelectedItem
+    tableName = sender.selectedItem!.title
     
     /*
      If the selected array has been modified but not yet saved, load the unsaved array
@@ -56,15 +59,15 @@ class SettingsVC: NSViewController {
     var currentArray = getCurrentArray()
     
     currentArray.remove(at: tableView.selectedRow)
-    modifiedList.updateValue(currentArray, forKey: tableLabel)
+    modifiedList.updateValue(currentArray, forKey: String(tableNumber))
     
     // Load list from unsaved array
-    loadTable(tableToShow: modifiedList[tableLabel]!)
+    loadTable(tableToShow: modifiedList[String(tableNumber)]!)
   }
   
   @IBAction func saveSettingsClicked(_ sender: Any) {
     
-		defaults.set(saveDefaultsCheckbox.state.rawValue, forKey: "autoFillOnNextRun")
+    defaults.set(saveDefaultsCheckbox.state.rawValue, forKey: "autoFillOnNextRun")
     
     modifiedList.forEach { (key, value) in
       defaults.set(value, forKey: key)
@@ -86,7 +89,7 @@ class SettingsVC: NSViewController {
   
   var menusTable: MenusTable?
   var delegate: ValueChanged?
-  var tableLabel = "Encryption Options"
+  var tableNumber = -1
   var tableName = ""
   let defaults = UserDefaults.standard
   
@@ -97,9 +100,10 @@ class SettingsVC: NSViewController {
     
     if segue.identifier == "addItem" {
       let addItemVC = segue.destinationController as! AddItemVC
-      addItemVC.tableLabel = tableLabel
+      addItemVC.tableNumber = tableNumber
       addItemVC.tableName = tableName
       addItemVC.delegate = self
+      
     }
     
   }
@@ -116,12 +120,12 @@ extension SettingsVC: ValueChanged {
   }
   
   // Wrapped in a function so this can be called in AddItemVC as delegate method
-  func addToTemporaryList(key: String, array: [String]) {
-    modifiedList.updateValue(array, forKey: key)
+  func addToTemporaryList(number: Int, array: [String]) {
+    modifiedList.updateValue(array, forKey: String(number))
   }
   
   // Wrapped in a function so this can be called in AddItemVC as delegate method
   func getCurrentArray() -> [String] {
-    return (modifiedList[tableLabel] != nil) ? modifiedList[tableLabel]! : getTableArrayFromDefaults(menu: dropdownMenu)
+    return (modifiedList[String(tableNumber)] != nil) ? modifiedList[String(tableNumber)]! : getTableArrayFromDefaults(menu: dropdownMenu)
   }
 }

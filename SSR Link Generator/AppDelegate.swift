@@ -17,13 +17,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   func applicationDidFinishLaunching(_ notification: Notification) {
 
+//    let defaults = UserDefaults.standard
+//    let dictionary = defaults.dictionaryRepresentation()
+//    dictionary.keys.forEach { key in
+//      defaults.removeObject(forKey: key)
+//    }
+    
     // If userDefaults for 2 keys are both empty, then it's the first time app launches, we pour
     // arrays into userDefaults so later mainVC can always read dropdown menu items from there
-    if defaults.array(forKey: "Obfs Options") == nil && defaults.array(forKey: "Protocol Options") == nil {
+    if defaults.array(forKey: "0") == nil && defaults.array(forKey: "1") == nil {
       
-      defaults.set(encryptionMethods, forKey: "Encryption Options")
-      defaults.set(protocolOptions, forKey: "Protocol Options")
-      defaults.set(obfsOptions, forKey: "Obfs Options")
+      defaults.set(encryptionMethods, forKey: "0")
+      defaults.set(protocolOptions, forKey: "1")
+      defaults.set(obfsOptions, forKey: "2")
       
       // By default, save users menu selections and texts, and auto fill them on next run is turned on.
       defaults.set(1, forKey: "autoFillOnNextRun")

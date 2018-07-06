@@ -208,7 +208,6 @@ class ViewController: NSViewController {
         
         self.resultText.string = finalString
         
-        //          self.resultText.placeholderAttributedString = NSAttributedString(string: "")
       }
     }
     
@@ -241,10 +240,11 @@ extension ViewController: ValueChanged {
     protocolOptions.removeAllItems()
     // If those keys in userDefaults returns nil (say it's the 1st time app launches, we populate
     // menus with arrays defined in appDelegate
-    if defaults.array(forKey: "Encryption Options") != nil {
-      defaults.array(forKey: "Encryption Options")?.forEach { encryptionMethods.addItem(withTitle: $0 as! String) }
-      defaults.array(forKey: "Obfs Options")?.forEach { obfsOptions.addItem(withTitle: $0 as! String) }
-      defaults.array(forKey: "Protocol Options")?.forEach { protocolOptions.addItem(withTitle: $0 as! String) }
+    if defaults.array(forKey: "0") != nil {
+      defaults.array(forKey: "0")?.forEach { encryptionMethods.addItem(withTitle: $0 as! String) }
+      defaults.array(forKey: "1")?.forEach { protocolOptions.addItem(withTitle: $0 as! String) }
+      defaults.array(forKey: "2")?.forEach { obfsOptions.addItem(withTitle: $0 as! String) }
+
       
     } else {
       

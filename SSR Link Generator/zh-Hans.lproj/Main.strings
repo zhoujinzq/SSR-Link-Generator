@@ -60,7 +60,7 @@
 "HeK-JP-ivb.title" = "协议：";
 
 /* Class = "NSTextFieldCell"; title = "obfuscation:"; ObjectID = "I9a-Nc-3cK"; */
-"I9a-Nc-3cK.title" = "obfuscation:";
+"I9a-Nc-3cK.title" = "混淆方式：";
 
 /* Class = "NSWindow"; title = "SSR Link Generator"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "SSR Link Generator";
@@ -150,7 +150,7 @@
 "bRN-ER-53q.title" = "退出时保留值：";
 
 /* Class = "NSTextFieldCell"; title = "Server IP / Domain:"; ObjectID = "bdO-Aj-N1c"; */
-"bdO-Aj-N1c.title" = "服务器IP或域名";
+"bdO-Aj-N1c.title" = "服务器IP或域名：";
 
 /* Class = "NSMenu"; title = "Substitutions"; ObjectID = "ctD-zk-FDe"; */
 "ctD-zk-FDe.title" = "Substitutions";
