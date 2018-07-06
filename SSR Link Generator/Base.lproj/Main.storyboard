@@ -42,6 +42,18 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="File" id="QaQ-M9-OnQ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="File" id="RKr-qx-XsI">
+                                    <items>
+                                        <menuItem title="Close" keyEquivalent="w" id="Xa3-GQ-Kee">
+                                            <connections>
+                                                <action selector="performClose:" target="Ady-hI-5gd" id="yfD-Bq-TJa"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Edit" id="xL4-DK-So9">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Edit" id="DAr-kj-mSV">
