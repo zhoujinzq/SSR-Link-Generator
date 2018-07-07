@@ -9,13 +9,13 @@
 "2hj-mF-9eh.title" = "App启动时自动填写上一次使用的值";
 
 /* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "3oQ-wB-jbN"; */
-"3oQ-wB-jbN.title" = "Start Speaking";
+"3oQ-wB-jbN.title" = "开始朗读";
 
 /* Class = "NSTextFieldCell"; title = "Encryption:"; ObjectID = "4IM-UU-Oqk"; */
 "4IM-UU-Oqk.title" = "加密方式：";
 
 /* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "4M7-93-gJp"; */
-"4M7-93-gJp.title" = "Substitutions";
+"4M7-93-gJp.title" = "替换";
 
 /* Class = "NSMenuItem"; title = "Quit SSR Link Generator"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "退出 SSR Link Generator";
@@ -24,16 +24,16 @@
 "5kV-Vb-QxS.title" = "关于 SSR Link Generator";
 
 /* Class = "NSMenuItem"; title = "Text Replacement"; ObjectID = "8Ez-ez-846"; */
-"8Ez-ez-846.title" = "Text Replacement";
+"8Ez-ez-846.title" = "文本替换";
 
 /* Class = "NSTextFieldCell"; title = "Protocol Parameter:"; ObjectID = "9rd-Ud-W6B"; */
 "9rd-Ud-W6B.title" = "协议参数：";
 
 /* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "AOD-x8-jVy"; */
-"AOD-x8-jVy.title" = "Make Lower Case";
+"AOD-x8-jVy.title" = "小写";
 
 /* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "APp-7L-My0"; */
-"APp-7L-My0.title" = "Capitalize";
+"APp-7L-My0.title" = "大写";
 
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Main Menu";
@@ -42,19 +42,19 @@
 "BOF-NM-1cW.title" = "选项设置…";
 
 /* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "BZj-5d-sOT"; */
-"BZj-5d-sOT.title" = "Spelling and Grammar";
+"BZj-5d-sOT.title" = "拼写和语法";
 
 /* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "D7p-Ep-Jfz"; */
 "D7p-Ep-Jfz.title" = "Transformations";
 
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "DAr-kj-mSV"; */
-"DAr-kj-mSV.title" = "Edit";
+"DAr-kj-mSV.title" = "编辑";
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
-"F2S-fz-NVQ.title" = "Help";
+"F2S-fz-NVQ.title" = "帮助";
 
 /* Class = "NSMenuItem"; title = "SSR Link Generator Help"; ObjectID = "FKE-Sm-Kum"; */
-"FKE-Sm-Kum.title" = "SSR Link Generator Help";
+"FKE-Sm-Kum.title" = "SSR Link Generator 帮助";
 
 /* Class = "NSTextFieldCell"; title = "Protocol:"; ObjectID = "HeK-JP-ivb"; */
 "HeK-JP-ivb.title" = "协议：";
@@ -69,10 +69,10 @@
 "Idq-1b-1qY.title" = "Check Grammar With Spelling";
 
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "K9v-bu-RXk"; */
-"K9v-bu-RXk.title" = "Find Next";
+"K9v-bu-RXk.title" = "查找下一个";
 
 /* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "KMD-Pf-lTc"; */
-"KMD-Pf-lTc.title" = "Stop Speaking";
+"KMD-Pf-lTc.title" = "停止朗读";
 
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "LcS-5z-0hh"; */
 "LcS-5z-0hh.title" = "Table View Cell";

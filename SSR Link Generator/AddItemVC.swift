@@ -12,7 +12,7 @@ class AddItemVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     /*
      Make sure delegation works, otherwise bail. If nothing goes wrong here,
      we can safely force unwrap all those optionals below.
@@ -38,7 +38,10 @@ class AddItemVC: NSViewController {
     
     // Check if value is existed in current array
     if currentArray.contains(stringToAdd) {
-      createAlert(NSLocalizedString("\(stringToAdd) is already in \(tableName!)", comment: "\(stringToAdd) is already in \(tableName!)"))
+      //      createAlert(NSLocalizedString("\(stringToAdd) is already in \(tableName!)", comment: "\(stringToAdd) is already in \(tableName!)"))
+      
+      let formatString = NSLocalizedString("%d is already in ", comment: "alert message")
+      createAlert(String.localizedStringWithFormat(formatString, tableName!))
       return
     }
     /*
@@ -85,7 +88,7 @@ class AddItemVC: NSViewController {
     
     // If user hasn't modified other menus, check value with userDefaults
     let encryptions = defaults.array(forKey: "0") as! [String]
-
+    
     let protocols = defaults.array(forKey: "1") as! [String]
     let obfs = defaults.array(forKey: "2") as! [String]
     

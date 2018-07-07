@@ -3,43 +3,43 @@
 "1Xt-HY-uBw.title" = "SSR Link Generator";
 
 /* Class = "NSTextFieldCell"; title = "Group:"; ObjectID = "2U2-S3-psm"; */
-"2U2-S3-psm.title" = "分组：";
+"2U2-S3-psm.title" = "Group:";
 
 /* Class = "NSButtonCell"; title = "Save values & auto fill on next app launch"; ObjectID = "2hj-mF-9eh"; */
-"2hj-mF-9eh.title" = "App启动时自动填写上一次使用的值";
+"2hj-mF-9eh.title" = "Save values & auto fill on next app launch";
 
 /* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "3oQ-wB-jbN"; */
-"3oQ-wB-jbN.title" = "开始朗读";
+"3oQ-wB-jbN.title" = "Start Speaking";
 
 /* Class = "NSTextFieldCell"; title = "Encryption:"; ObjectID = "4IM-UU-Oqk"; */
-"4IM-UU-Oqk.title" = "加密：";
+"4IM-UU-Oqk.title" = "Encryption:";
 
 /* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "4M7-93-gJp"; */
-"4M7-93-gJp.title" = "查找并替换";
+"4M7-93-gJp.title" = "Substitutions";
 
 /* Class = "NSMenuItem"; title = "Quit SSR Link Generator"; ObjectID = "4sb-4s-VLi"; */
-"4sb-4s-VLi.title" = "退出 SSR Link Generator";
+"4sb-4s-VLi.title" = "Quit SSR Link Generator";
 
 /* Class = "NSMenuItem"; title = "About SSR Link Generator"; ObjectID = "5kV-Vb-QxS"; */
-"5kV-Vb-QxS.title" = "关于 SSR Link Generator";
+"5kV-Vb-QxS.title" = "About SSR Link Generator";
 
 /* Class = "NSMenuItem"; title = "Text Replacement"; ObjectID = "8Ez-ez-846"; */
-"8Ez-ez-846.title" = "文本替换";
+"8Ez-ez-846.title" = "Text Replacement";
 
 /* Class = "NSTextFieldCell"; title = "Protocol Parameter:"; ObjectID = "9rd-Ud-W6B"; */
-"9rd-Ud-W6B.title" = "协议参数：";
+"9rd-Ud-W6B.title" = "Protocol Parameter:";
 
 /* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "AOD-x8-jVy"; */
 "AOD-x8-jVy.title" = "Make Lower Case";
 
 /* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "APp-7L-My0"; */
-"APp-7L-My0.title" = "大写";
+"APp-7L-My0.title" = "Capitalize";
 
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Main Menu";
 
 /* Class = "NSMenuItem"; title = "Settings…"; ObjectID = "BOF-NM-1cW"; */
-"BOF-NM-1cW.title" = "选项设置…";
+"BOF-NM-1cW.title" = "Settings…";
 
 /* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "BZj-5d-sOT"; */
 "BZj-5d-sOT.title" = "Spelling and Grammar";
@@ -57,10 +57,10 @@
 "FKE-Sm-Kum.title" = "SSR Link Generator Help";
 
 /* Class = "NSTextFieldCell"; title = "Protocol:"; ObjectID = "HeK-JP-ivb"; */
-"HeK-JP-ivb.title" = "协议：";
+"HeK-JP-ivb.title" = "Protocol:";
 
 /* Class = "NSTextFieldCell"; title = "obfuscation:"; ObjectID = "I9a-Nc-3cK"; */
-"I9a-Nc-3cK.title" = "混淆：";
+"I9a-Nc-3cK.title" = "Obfuscation:";
 
 /* Class = "NSWindow"; title = "SSR Link Generator"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "SSR Link Generator";
@@ -81,10 +81,10 @@
 "NH0-Rg-ejU.title" = "Make Upper Case";
 
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
-"NMo-om-nkz.title" = "服务";
+"NMo-om-nkz.title" = "Services";
 
 /* Class = "NSButtonCell"; title = "Settings"; ObjectID = "NU3-bQ-Kr8"; */
-"NU3-bQ-Kr8.title" = "选项设置";
+"NU3-bQ-Kr8.title" = "Settings";
 
 /* Class = "NSMenuItem"; title = "Paste and Match Style"; ObjectID = "NUi-Ko-Kyf"; */
 "NUi-Ko-Kyf.title" = "Paste and Match Style";
@@ -102,28 +102,28 @@
 "QaQ-M9-OnQ.title" = "File";
 
 /* Class = "NSTextFieldCell"; title = "Remark:"; ObjectID = "QuO-hi-3dS"; */
-"QuO-hi-3dS.title" = "备注：";
+"QuO-hi-3dS.title" = "Remarks:";
 
 /* Class = "NSMenuItem"; title = "Obfs Options"; ObjectID = "R8q-aj-yme"; */
-"R8q-aj-yme.title" = "混淆方式";
+"R8q-aj-yme.title" = "Obfuscations";
 
 /* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "RAy-8H-G8Q"; */
 "RAy-8H-G8Q.title" = "Smart Dashes";
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "RKr-qx-XsI"; */
-"RKr-qx-XsI.title" = "文件";
+"RKr-qx-XsI.title" = "File";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "RVI-fm-sHY"; */
-"RVI-fm-sHY.title" = "复制";
+"RVI-fm-sHY.title" = "Copy";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "TTa-jD-Rap"; */
-"TTa-jD-Rap.title" = "粘贴";
+"TTa-jD-Rap.title" = "Paste";
 
 /* Class = "NSButtonCell"; title = "Add"; ObjectID = "TjA-lg-OL8"; */
-"TjA-lg-OL8.title" = "添加";
+"TjA-lg-OL8.title" = "Add";
 
 /* Class = "NSButtonCell"; title = "Save"; ObjectID = "U3T-7d-H6q"; */
-"U3T-7d-H6q.title" = "保存";
+"U3T-7d-H6q.title" = "Save";
 
 /* Class = "NSButtonCell"; title = "Cancle"; ObjectID = "UN7-df-OPD"; */
 "UN7-df-OPD.title" = "Cancle";
