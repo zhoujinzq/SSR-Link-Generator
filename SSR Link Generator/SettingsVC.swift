@@ -14,24 +14,30 @@ class SettingsVC: NSViewController {
     super.viewDidLoad()
     
     saveDefaultsCheckbox.state = defaults.integer(forKey: "autoFillOnNextRun") == 0 ? .off : .on
-    loadTable(tableToShow: getTableArrayFromDefaults(menu: dropdownMenu))
     
-    // Get table name, used to be displayed in some UI parts, this could be different from tableLabel due to multi language
+    /*
+      Set tableView's datasource according to dropdown menu's indexOfSelectedItem, which by default will return 0 when
+      index is out of range. So when this view load, tableview always shows the encryption methods array, and change
+      accordingly to user action later on.
+     */
+    let tableItemsToLoad = getTableArrayFromDefaults(menu: dropdownMenu)
+    loadTable(tableToShow: tableItemsToLoad)
+    
+    // TableName is used in some UI elements and alert messages, tableNumber is used to update modifiedList and also
+    // in addItemVC, so everytime those 2 values changed, we update the values.
     tableName = dropdownMenu.titleOfSelectedItem!
-    
     tableNumber = dropdownMenu.indexOfSelectedItem
   }
   
   // Change table contents base on user selection
   @IBAction func dropdownClicked(_ sender: NSPopUpButton) {
     
-    // 'tableNumber' is used elsewhere in this vc, so its value must reflect
-    // which array is been selected and modifiedat accordingly at any moment
+		// Update the two values
     tableNumber = sender.indexOfSelectedItem
-    tableName = sender.selectedItem!.title
+    tableName = sender.titleOfSelectedItem!
     
     /*
-     If the selected array has been modified but not yet saved, load the unsaved array
+     If the selected array has been modified but not yet saved, set the unsaved array
      as table's datasource, otherwise use the array in userDefaults as datasource
      */
     loadTable(tableToShow: getCurrentArray())
@@ -43,11 +49,14 @@ class SettingsVC: NSViewController {
     
     // Deletion of last item in a menu is not allowed
     guard tableView.numberOfRows > 1 else {
-      createAlert(NSLocalizedString("Unable to delete last item in \(tableName)", comment: "Unable to delete last item in \(tableName)"))
+      
+      let formatString = NSLocalizedString("Unable to delete last item in %d", comment: "Disallow user to delete the last item in an array")
+      createAlert(String.localizedStringWithFormat(formatString, tableName))
       return
     }
     
     guard tableView.selectedRow != -1 else {
+      
       createAlert(NSLocalizedString("Please select the value you want to delete", comment: "Please select the value you want to delete"))
       return
     }
@@ -93,15 +102,23 @@ class SettingsVC: NSViewController {
   var tableName = ""
   let defaults = UserDefaults.standard
   
-  // To track all modified but not saved dropdown menu items
+  // To hold all modified but not saved array data
   var modifiedList = [String: [String]]()
   
   override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
     
     if segue.identifier == "addItem" {
+      
       let addItemVC = segue.destinationController as! AddItemVC
-      addItemVC.tableNumber = tableNumber
-      addItemVC.tableName = tableName
+      addItemVC.currentListNumber = tableNumber
+
+      // Create an array for all "names" for arrays, used in alert message in addItemVC in case something goes wrong
+      // Multi language support makes it hard to get the name in addItemVC itself
+      var names = [String]()
+      dropdownMenu.itemArray.forEach { names.append($0.title) }
+      addItemVC.listNames = names
+      
+      addItemVC.modifiedList = modifiedList
       addItemVC.delegate = self
       
     }

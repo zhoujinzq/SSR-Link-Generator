@@ -8,7 +8,6 @@
 
 import Cocoa
 
-
 @objc protocol ValueChanged {
   
   func loadTable(tableToShow: [String])
@@ -34,6 +33,7 @@ func getTableArrayFromDefaults(menu: NSPopUpButton) -> [String] {
     let defaults = UserDefaults.standard
     
     switch menu.indexOfSelectedItem {
+      
     case 1:
       return defaults.array(forKey: "1") as! [String]
     case 2:

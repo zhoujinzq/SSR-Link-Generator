@@ -12,19 +12,20 @@ class AddItemVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     /*
      Make sure delegation works, otherwise bail. If nothing goes wrong here,
      we can safely force unwrap all those optionals below.
      */
     if let delegate = delegate {
       currentArray = delegate.getCurrentArray!()
+
     } else {
       dismiss(self)
     }
     
     // Append name of the currently editing menu in UI element
-    arrayLabel.stringValue += tableName! + ":"
+    arrayLabel.stringValue += 	listNames![currentListNumber!] + ":"
   }
   
   @IBAction func addString(_ sender: Any) {
@@ -38,10 +39,9 @@ class AddItemVC: NSViewController {
     
     // Check if value is existed in current array
     if currentArray.contains(stringToAdd) {
-      //      createAlert(NSLocalizedString("\(stringToAdd) is already in \(tableName!)", comment: "\(stringToAdd) is already in \(tableName!)"))
       
-      let formatString = NSLocalizedString("%d is already in ", comment: "alert message")
-      createAlert(String.localizedStringWithFormat(formatString, tableName!))
+      let formatString = NSLocalizedString("%d is already in %d", comment: "alert message")
+      createAlert(String.localizedStringWithFormat(formatString, stringToAdd, listNames![currentListNumber!]))
       return
     }
     /*
@@ -51,10 +51,13 @@ class AddItemVC: NSViewController {
      here we are sure the code below will only check it with other arrays, so we
      can skip the code to find other 2 arrays rather than checking with all arrays.
      */
-    if let arrayLabel = checkWithArrays(stringToAdd, with: currentArray) {
+    if let arrayNumber = checkWithArrays(stringToAdd) {
       let alert = NSAlert()
       alert.alertStyle = .critical
-      alert.messageText = NSLocalizedString("\(stringToAdd) is already in \(arrayLabel)，still add to \(tableName!)？", comment: "\(stringToAdd) is already in \(arrayLabel)，still add to \(tableName!)？")
+      let formatString = NSLocalizedString("%d is already in %d, still add to %d?", comment: "already in another array")
+      let arrayLabel = listNames![arrayNumber]
+      
+      alert.messageText = String.localizedStringWithFormat(formatString, stringToAdd, arrayLabel, listNames![currentListNumber!])
       alert.addButton(withTitle: "Cancel")
       alert.addButton(withTitle: "Add")
       // Set keyboard shortcut for Cancel button to be ESC, and enter for Add button
@@ -69,39 +72,37 @@ class AddItemVC: NSViewController {
         }
       })
     } else {
-      // If none of the above situation happens, we simply add the string into currentArray
+      // If none of the above situation happens, we add the string into currentArray and update modifedList
       addItem(stringToAdd, to: currentArray)
     }
     
   }
   
-  func checkWithArrays(_ stringToAdd: String, with array: [String]) -> String? {
-    
-    let modifiedList = SettingsVC().modifiedList
+  func checkWithArrays(_ stringToAdd: String) -> Int? {
     
     // Compare with 'modifiedList' first
-    for (key, array) in modifiedList {
+    for (key, array) in modifiedList! {
       if array.contains(stringToAdd) {
-        return key
+        let number = Int(key)!
+        return number
       }
     }
     
     // If user hasn't modified other menus, check value with userDefaults
     let encryptions = defaults.array(forKey: "0") as! [String]
-    
     let protocols = defaults.array(forKey: "1") as! [String]
     let obfs = defaults.array(forKey: "2") as! [String]
     
-    if protocols.contains(stringToAdd) {
-      return "Protocol Options"
+    if encryptions.contains(stringToAdd) && modifiedList?["0"] == nil {
+      return 0
     }
     
-    if obfs.contains(stringToAdd) && modifiedList["Obfs Options"] == nil {
-      return "Obfs Options"
+    if protocols.contains(stringToAdd) && modifiedList?["1"] == nil {
+      return 1
     }
     
-    if encryptions.contains(stringToAdd) && modifiedList["Encryption Options"] == nil {
-      return "Encryption Options"
+    if obfs.contains(stringToAdd) && modifiedList?["2"] == nil {
+      return 2
     }
     
     return nil
@@ -111,7 +112,7 @@ class AddItemVC: NSViewController {
     
     var newArray = array
     newArray.append(string)
-    delegate?.addToTemporaryList!(number: tableNumber!, array: newArray)
+    delegate?.addToTemporaryList!(number: currentListNumber!, array: newArray)
     delegate?.loadTable(tableToShow: newArray)
     dismiss(self)
   }
@@ -119,8 +120,9 @@ class AddItemVC: NSViewController {
   @IBOutlet weak var arrayLabel: NSTextField!
   @IBOutlet weak var inputTextField: NSTextField!
   
-  var tableNumber: Int?
-  var tableName: String?
+  var currentListNumber: Int?
+  var listNames: [String]?
+  var modifiedList: [String: [String]]?
   var currentArray = [String]()
   var delegate: ValueChanged?
   let defaults = UserDefaults.standard
