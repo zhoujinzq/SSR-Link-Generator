@@ -24,7 +24,7 @@ Swift 4.2 +
 
 ## 下载
 
-Release 页面
+[Release](https://github.com/Ladiesman218/SSR-Link-Generator/releases) 页面
 
 ## License
 
